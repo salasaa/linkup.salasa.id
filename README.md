@@ -8,11 +8,13 @@
 
 - Contact list
 - Search contacts
-- Action
-- Add Contact
-- Edit Contact
-- Delete Contact
+- Action : Manage Contacts
+  - Add Contact
+  - Edit Contact
+  - Delete Contact
 
-> status: `frontend`, `backend`, `fullstack`, `design`
+> role: `frontend`, `backend`, `fullstack`, `design`
+> mode: `dark`, `light`
+> responsive design
 
 ## Screenshots
