@@ -1,17 +1,18 @@
-# address-book
+# linkup.salasa.id
 
 ![logo](./logo.png)
 
-> Address Book is a simple application to manage your contacts.
+> Linkup is a simple contact management application that allows you to manage your contacts easily.
 
 ## Features
 
 - Contact list
 - Search contacts
+- Action
 - Add Contact
 - Edit Contact
 - Delete Contact
 
-> status: `active`, `inactive`
+> status: `frontend`, `backend`, `fullstack`, `design`
 
 ## Screenshots
