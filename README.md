@@ -13,7 +13,5 @@
 - Delete Contact
 
 > status: `active`, `inactive`
->
-> > responsive design
 
 ## Screenshots
