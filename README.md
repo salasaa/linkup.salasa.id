@@ -2,7 +2,7 @@
 
 ![logo](./logo.png)
 
-> Linkup is a simple contact management application that allows you to manage your contacts easily.
+> Linkup is a simple contact book that allows you to manage your contacts easily.
 
 ## Features
 
