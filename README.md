@@ -12,7 +12,8 @@
 - Edit Contact
 - Delete Contact
 
-> > status: `active`, `inactive`
+> status: `active`, `inactive`
+>
 > > responsive design
 
 ## Screenshots
