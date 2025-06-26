@@ -52,6 +52,7 @@ const contacts = [
 console.log(contacts);
 
 /* Get all contacts */
+
 function getAllContacts() {
   for (let contact of contacts) {
     console.log(
@@ -66,29 +67,37 @@ function getAllContacts() {
 getAllContacts();
 
 /* Get contact by job title */
-// function getContact() {
-//   const jobTitle = contacts[2];
-//   return jobTitle;
-// }
-// const contact = getContact();
-// console.log(contact);
+function getContact() {
+  const jobTitle = contacts[2];
+  return jobTitle;
+}
+const contact = getContact();
+console.log(contact);
 
-// let addContact = [
-//   {
-//     id: 5,
-//     firstName: "John",
-//     lastName: "Doe",
-//     companyName: "New Company",
-//     jobTitle: "Developer",
-//     email: "john.doe@example.com",
-//     phone: "+62 123-456-7890",
-//     createdAt: new Date("06-26-2025"),
-//     website: "https://johndoe.com",
-//     isFavorited: false,
-//   },
-// ];
-// function addNewContact(newContact) {
-//   contacts.push(newContact);
-// }
-// addNewContact(addContact[0]);
-// console.log(contacts);
+/* Add contact */
+let addContact = [
+  {
+    id: 5,
+    firstName: "John",
+    lastName: "Doe",
+    companyName: "New Company",
+    jobTitle: "Developer",
+    email: "john.doe@example.com",
+    phone: "+62 123-456-7890",
+    createdAt: new Date().toLocaleDateString(),
+    website: "https://johndoe.com",
+    isFavorited: false,
+  },
+];
+function addNewContact(newContact) {
+  contacts.push(newContact);
+}
+addNewContact(addContact[0]);
+console.log(contacts);
+
+/* Get contact by id */
+function getContactById(id) {
+  return contacts.find((contact) => contact.id === id);
+}
+const contactID5 = getContactById(5);
+console.log(contactID5.firstName, contactID5.lastName);
