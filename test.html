@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manajemen Kontak Sederhana</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Optional: Custom scrollbar for better appearance */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 font-sans antialiased">
+    <div class="flex h-screen overflow-hidden">
+      <aside
+        class="w-64 bg-white border-r border-gray-200 p-4 flex flex-col shadow-md"
+      >
+        <h1 class="text-2xl font-semibold text-gray-800 mb-6">Kontak</h1>
+        <button
+          id="createContactButton"
+          class="flex items-center w-full px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition duration-200 shadow-lg mb-4"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 mr-2"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          Buat kontak
+        </button>
+        <nav class="space-y-1">
+          <a
+            href="#"
+            id="sidebarContactsLink"
+            class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition duration-200"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 mr-3"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" />
+            </svg>
+            Kontak
+            <span class="ml-auto text-sm text-gray-500" id="contactCount"
+              >0</span
+            >
+          </a>
+          <a
+            href="#"
+            class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition duration-200"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 mr-3"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            Sering
+          </a>
+          <a
+            href="#"
+            class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition duration-200"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 mr-3"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9.293 12.293a1 1 0 001.414 1.414L12 11.414l1.293 1.293a1 1 0 001.414-1.414L13.414 10l1.293-1.293a1 1 0 00-1.414-1.414L12 8.586l-1.293-1.293a1 1 0 00-1.414 1.414L10.586 10l-1.293 1.293a1 1 0 000 1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            Kontak lainnya
+          </a>
+        </nav>
+        <div class="mt-auto pt-4 border-t border-gray-200">
+          <h3 class="text-sm font-semibold text-gray-500 mb-2">Label</h3>
+          <a
+            href="#"
+            class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition duration-200"
+          >
+            <span class="mr-3 text-lg">&bull;</span>
+            baru kenal
+            <span class="ml-auto text-sm text-gray-500">1</span>
+          </a>
+          <button
+            class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition duration-200 w-full text-left mt-2"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 mr-3"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            Buat label
+          </button>
+        </div>
+      </aside>
+
+      <main class="flex-1 overflow-y-auto bg-gray-100 p-6 flex">
+        <div
+          id="contactFormSection"
+          class="flex-1 bg-white p-6 rounded-lg shadow-sm max-w-2xl mx-auto mr-4"
+        >
+          <header
+            class="flex items-center justify-between bg-white p-4 rounded-lg shadow-sm mb-6"
+          >
+            <div class="flex items-center space-x-2">
+              <a
+                href="#"
+                id="backToContacts"
+                class="text-gray-500 hover:text-gray-700 hidden"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                  />
+                </svg>
+              </a>
+              <h2
+                id="contactFormTitle"
+                class="text-xl font-semibold text-gray-800"
+              >
+                Buat Kontak Baru
+              </h2>
+            </div>
+            <div class="flex items-center space-x-4">
+              <button class="text-gray-500 hover:text-gray-700">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M11.05 16.05l-3.32-3.32a1.5 1.5 0 01-.01-2.12l.01-.01a1.5 1.5 0 012.12-.01l3.32 3.32a1.5 1.5 0 01.01 2.12l-.01.01a1.5 1.5 0 01-2.12.01z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 20a8 8 0 100-16 8 8 0 000 16z"
+                  />
+                </svg>
+              </button>
+              <button
+                type="submit"
+                id="saveButton"
+                class="px-6 py-2 bg-gray-200 text-gray-600 rounded-full cursor-not-allowed transition duration-200"
+                disabled
+              >
+                Simpan
+              </button>
+            </div>
+          </header>
+
+          <form id="contactForm" class="space-y-4">
+            <input type="hidden" id="contactId" name="id" />
+            <div class="mb-6">
+              <button
+                type="button"
+                class="flex items-center px-4 py-2 border border-gray-300 text-blue-600 rounded-full hover:bg-blue-50 transition duration-200 text-sm"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 mr-1"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Label
+              </button>
+            </div>
+
+            <div>
+              <label
+                for="firstName"
+                class="block text-sm font-medium text-gray-700"
+                >Nama depan</label
+              >
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+            </div>
+
+            <div>
+              <label
+                for="lastName"
+                class="block text-sm font-medium text-gray-700"
+                >Nama belakang</label
+              >
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+            </div>
+
+            <div>
+              <label
+                for="companyName"
+                class="block text-sm font-medium text-gray-700"
+                >Perusahaan</label
+              >
+              <input
+                type="text"
+                id="companyName"
+                name="companyName"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+            </div>
+
+            <div>
+              <label
+                for="jobTitle"
+                class="block text-sm font-medium text-gray-700"
+                >Jabatan</label
+              >
+              <input
+                type="text"
+                id="jobTitle"
+                name="jobTitle"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+            </div>
+
+            <div id="emailFields" class="space-y-4">
+              <div>
+                <label
+                  for="email1"
+                  class="block text-sm font-medium text-gray-700"
+                  >Email</label
+                >
+                <input
+                  type="email"
+                  id="email1"
+                  name="email[]"
+                  class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                />
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                id="addEmailButton"
+                class="flex items-center text-blue-600 hover:text-blue-800 transition duration-200"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 mr-1"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Tambahkan email
+              </button>
+            </div>
+
+            <div id="phoneFields" class="space-y-4">
+              <div class="flex items-center space-x-2">
+                <div class="w-full">
+                  <label
+                    for="phone1"
+                    class="block text-sm font-medium text-gray-700"
+                    >Telepon</label
+                  >
+                  <input
+                    type="text"
+                    id="phone1"
+                    name="phone[]"
+                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  />
+                </div>
+                <div class="relative w-32">
+                  <label
+                    for="phoneLabel1"
+                    class="block text-sm font-medium text-gray-700 sr-only"
+                    >Label</label
+                  >
+                  <select
+                    id="phoneLabel1"
+                    name="phoneLabel[]"
+                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 bg-white focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  >
+                    <option value="Mobile">Mobile</option>
+                    <option value="Work">Work</option>
+                    <option value="Home">Home</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                id="addPhoneButton"
+                class="flex items-center text-blue-600 hover:text-blue-800 transition duration-200"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 mr-1"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Tambahkan telepon
+              </button>
+            </div>
+
+            <div>
+              <label
+                for="website"
+                class="block text-sm font-medium text-gray-700"
+                >Website</label
+              >
+              <input
+                type="url"
+                id="website"
+                name="website"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+            </div>
+            <div class="flex items-center">
+              <input
+                type="checkbox"
+                id="isFavorited"
+                name="isFavorited"
+                class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label for="isFavorited" class="ml-2 block text-sm text-gray-900">
+                Tandai sebagai favorit
+              </label>
+            </div>
+
+            <div
+              class="mt-8 pt-4 border-t border-gray-200 text-gray-600 text-sm"
+            >
+              <button
+                type="button"
+                class="flex items-center hover:text-blue-800 transition duration-200"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 mr-1"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Tambahkan kolom lainnya
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div
+          id="contactsListSection"
+          class="w-80 bg-white p-4 rounded-lg shadow-sm overflow-y-auto hidden"
+        >
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">
+            Daftar Kontak
+          </h3>
+          <ul id="contactsList" class="space-y-2"></ul>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      const contacts = [
+        {
+          id: 1,
+          firstName: "Salasa",
+          lastName: "id",
+          companyName: "Tech Solutions",
+          jobTitle: "Software Engineer",
+          email: ["salasa@example.com"],
+          phone: [{ number: "+62 123-456-7890", label: "Mobile" }],
+          createdAt: new Date("2025-06-25T00:00:00Z"),
+          website: "https://salasa.id",
+          isFavorited: true,
+        },
+        {
+          id: 2,
+          firstName: "Pramudia",
+          lastName: "Adi",
+          companyName: "Business Corp",
+          jobTitle: "Project Manager",
+          email: ["pramudia@example.com"],
+          phone: [{ number: "+62 987-654-3210", label: "Mobile" }],
+          createdAt: new Date("2025-06-25T00:00:00Z"),
+          website: "https://pramudia.com",
+          isFavorited: true,
+        },
+        {
+          id: 3,
+          firstName: "Aysha",
+          lastName: "Shifa",
+          companyName: "Creative Agency",
+          jobTitle: "UX Designer",
+          email: ["aysha@example.com"],
+          phone: [{ number: "+62 555-123-4567", label: "Mobile" }],
+          website: "https://ayshashifa.com",
+          createdAt: new Date("2025-06-25T00:00:00Z"),
+          isFavorited: false,
+        },
+        {
+          id: 4,
+          firstName: "Daniyal",
+          lastName: "Said",
+          companyName: "Tesla",
+          jobTitle: "Content Strategist",
+          email: ["daniyal@example.com"],
+          phone: [{ number: "+62 555-987-6543", label: "Mobile" }],
+          website: "https://daniyalsaid.com",
+          createdAt: new Date("2025-06-25T00:00:00Z"),
+          isFavorited: true,
+        },
+      ];
+
+      // Ensure email and phone are arrays of strings/objects for consistency
+      contacts.forEach((contact) => {
+        if (typeof contact.email === "string") {
+          contact.email = [contact.email];
+        }
+        if (typeof contact.phone === "string") {
+          contact.phone = [{ number: contact.phone, label: "Mobile" }]; // Default label if converting from string
+        }
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const contactFormSection =
+          document.getElementById("contactFormSection");
+        const contactsListSection = document.getElementById(
+          "contactsListSection"
+        );
+        const createContactButton = document.getElementById(
+          "createContactButton"
+        );
+        const sidebarContactsLink = document.getElementById(
+          "sidebarContactsLink"
+        );
+        const contactCountSpan = document.getElementById("contactCount");
+        const backToContactsButton = document.getElementById("backToContacts");
+
+        const emailFieldsContainer = document.getElementById("emailFields");
+        const addEmailButton = document.getElementById("addEmailButton");
+        let emailCount = 0; // Initialize to 0 for proper ID generation
+
+        const phoneFieldsContainer = document.getElementById("phoneFields");
+        const addPhoneButton = document.getElementById("addPhoneButton");
+        let phoneCount = 0; // Initialize to 0 for proper ID generation
+
+        const contactForm = document.getElementById("contactForm");
+        const saveButton = document.getElementById("saveButton");
+        const contactFormTitle = document.getElementById("contactFormTitle");
+        const contactsList = document.getElementById("contactsList");
+        let initialFormState = {}; // Will be set after form reset/fill
+
+        // --- Utility Functions ---
+
+        // Function to get current form values for comparison
+        function getFormValues() {
+          const formData = new FormData(contactForm);
+          const values = {};
+          for (let [key, value] of formData.entries()) {
+            if (key.startsWith("email")) {
+              // All email fields
+              if (!values.email) values.email = [];
+              if (value) values.email.push(value);
+            } else if (key.startsWith("phone") && !key.includes("Label")) {
+              // All phone number fields
+              if (!values.phone) values.phone = [];
+              values.phone.push({
+                number: value,
+                label:
+                  formData.get(`phoneLabel[${values.phone.length}]`) ||
+                  "Mobile", // Get corresponding label
+              });
+            } else if (key.startsWith("phoneLabel")) {
+              // Handled with phone number
+            } else if (key === "isFavorited") {
+              values[key] = value === "on"; // Checkbox value is 'on' if checked
+            } else if (key === "id") {
+              values[key] = value ? parseInt(value) : null;
+            } else {
+              values[key] = value;
+            }
+          }
+          return values;
+        }
+
+        // Function to enable/disable save button
+        function updateSaveButtonState() {
+          const currentFormState = getFormValues();
+          // Deep comparison for objects (simple for this case, more complex for nested objects)
+          const hasChanged =
+            JSON.stringify(initialFormState) !==
+            JSON.stringify(currentFormState);
+
+          if (
+            hasChanged &&
+            Object.values(currentFormState).some(
+              (val) =>
+                val !== "" &&
+                val !== null &&
+                (Array.isArray(val)
+                  ? val.some((item) =>
+                      typeof item === "object"
+                        ? item.number !== ""
+                        : item !== ""
+                    )
+                  : true)
+            )
+          ) {
+            saveButton.classList.remove(
+              "bg-gray-200",
+              "text-gray-600",
+              "cursor-not-allowed"
+            );
+            saveButton.classList.add(
+              "bg-blue-600",
+              "text-white",
+              "hover:bg-blue-700",
+              "cursor-pointer"
+            );
+            saveButton.disabled = false;
+          } else {
+            saveButton.classList.remove(
+              "bg-blue-600",
+              "text-white",
+              "hover:bg-blue-700",
+              "cursor-pointer"
+            );
+            saveButton.classList.add(
+              "bg-gray-200",
+              "text-gray-600",
+              "cursor-not-allowed"
+            );
+            saveButton.disabled = true;
+          }
+        }
+
+        // Function to add a new email input field
+        function addEmailField(emailValue = "") {
+          emailCount++;
+          const newEmailDiv = document.createElement("div");
+          newEmailDiv.innerHTML = `
+                    <label for="email${emailCount}" class="block text-sm font-medium text-gray-700 sr-only">Email ${emailCount}</label>
+                    <div class="flex items-center">
+                        <input type="email" id="email${emailCount}" name="email[]" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm mr-2" value="${emailValue}">
+                        ${
+                          emailCount > 1
+                            ? `<button type="button" class="remove-field text-red-500 hover:text-red-700 p-1 rounded-full" data-field-type="email">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1z" clip-rule="evenodd" />
+                            </svg>
+                        </button>`
+                            : ""
+                        }
+                    </div>
+                `;
+          emailFieldsContainer.appendChild(newEmailDiv);
+          newEmailDiv
+            .querySelector("input")
+            .addEventListener("input", updateSaveButtonState);
+          if (emailCount > 1) {
+            newEmailDiv
+              .querySelector(".remove-field")
+              .addEventListener("click", (e) => {
+                newEmailDiv.remove();
+                updateSaveButtonState();
+              });
+          }
+        }
+
+        // Function to add a new phone input field
+        function addPhoneField(phoneValue = "", phoneLabel = "Mobile") {
+          phoneCount++;
+          const newPhoneDiv = document.createElement("div");
+          newPhoneDiv.classList.add("flex", "items-center", "space-x-2");
+          newPhoneDiv.innerHTML = `
+                    <div class="w-full">
+                        <label for="phone${phoneCount}" class="block text-sm font-medium text-gray-700 sr-only">Telepon ${phoneCount}</label>
+                        <input type="text" id="phone${phoneCount}" name="phone[]" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" value="${phoneValue}">
+                    </div>
+                    <div class="relative w-32">
+                        <label for="phoneLabel${phoneCount}" class="block text-sm font-medium text-gray-700 sr-only">Label</label>
+                        <select id="phoneLabel${phoneCount}" name="phoneLabel[]" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 bg-white focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            <option value="Mobile" ${
+                              phoneLabel === "Mobile" ? "selected" : ""
+                            }>Mobile</option>
+                            <option value="Work" ${
+                              phoneLabel === "Work" ? "selected" : ""
+                            }>Work</option>
+                            <option value="Home" ${
+                              phoneLabel === "Home" ? "selected" : ""
+                            }>Home</option>
+                            <option value="Other" ${
+                              phoneLabel === "Other" ? "selected" : ""
+                            }>Other</option>
+                        </select>
+                    </div>
+                    ${
+                      phoneCount > 1
+                        ? `<button type="button" class="remove-field text-red-500 hover:text-red-700 p-1 rounded-full" data-field-type="phone">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1z" clip-rule="evenodd" />
+                        </svg>
+                    </button>`
+                        : ""
+                    }
+                `;
+          phoneFieldsContainer.appendChild(newPhoneDiv);
+          newPhoneDiv
+            .querySelector("input")
+            .addEventListener("input", updateSaveButtonState);
+          newPhoneDiv
+            .querySelector("select")
+            .addEventListener("change", updateSaveButtonState);
+          if (phoneCount > 1) {
+            newPhoneDiv
+              .querySelector(".remove-field")
+              .addEventListener("click", (e) => {
+                newPhoneDiv.remove();
+                updateSaveButtonState();
+              });
+          }
+        }
+
+        // Function to reset the form to empty state
+        function resetForm() {
+          contactForm.reset(); // Resets all standard form fields
+
+          document.getElementById("contactId").value = "";
+          document.getElementById("firstName").value = "";
+          document.getElementById("lastName").value = "";
+          document.getElementById("companyName").value = "";
+          document.getElementById("jobTitle").value = "";
+          document.getElementById("website").value = "";
+          document.getElementById("isFavorited").checked = false;
+
+          // Clear dynamic email fields and add one empty one
+          emailFieldsContainer.innerHTML = "";
+          emailCount = 0;
+          addEmailField("");
+
+          // Clear dynamic phone fields and add one empty one
+          phoneFieldsContainer.innerHTML = "";
+          phoneCount = 0;
+          addPhoneField("", "Mobile");
+
+          contactFormTitle.textContent = "Buat Kontak Baru"; // Update title
+          backToContactsButton.classList.add("hidden"); // Hide back button
+
+          // Capture the new initial state (empty)
+          initialFormState = getFormValues();
+          updateSaveButtonState(); // Disable save button
+        }
+
+        // Function to fill form with existing contact data
+        function fillForm(contact) {
+          document.getElementById("contactId").value = contact.id || "";
+          document.getElementById("firstName").value = contact.firstName || "";
+          document.getElementById("lastName").value = contact.lastName || "";
+          document.getElementById("companyName").value =
+            contact.companyName || "";
+          document.getElementById("jobTitle").value = contact.jobTitle || "";
+          document.getElementById("website").value = contact.website || "";
+          document.getElementById("isFavorited").checked =
+            contact.isFavorited || false;
+
+          // Fill email fields
+          emailFieldsContainer.innerHTML = "";
+          emailCount = 0;
+          if (contact.email && contact.email.length > 0) {
+            contact.email.forEach((email) => addEmailField(email));
+          } else {
+            addEmailField(""); // Add one empty if none exist
+          }
+
+          // Fill phone fields
+          phoneFieldsContainer.innerHTML = "";
+          phoneCount = 0;
+          if (contact.phone && contact.phone.length > 0) {
+            contact.phone.forEach((phone) =>
+              addPhoneField(phone.number, phone.label)
+            );
+          } else {
+            addPhoneField("", "Mobile"); // Add one empty if none exist
+          }
+
+          contactFormTitle.textContent = `${contact.firstName || ""} ${
+            contact.lastName || ""
+          }`;
+          backToContactsButton.classList.remove("hidden");
+
+          // Capture the initial state of the filled form
+          initialFormState = getFormValues();
+          updateSaveButtonState(); // Disable save button initially
+        }
+
+        // --- Render Contacts List ---
+        function renderContactsList() {
+          contactsList.innerHTML = ""; // Clear existing list
+          contactCountSpan.textContent = contacts.length;
+
+          if (contacts.length === 0) {
+            contactsList.innerHTML = `<li class="text-gray-500 text-sm">Belum ada kontak.</li>`;
+            return;
+          }
+
+          contacts.sort((a, b) =>
+            (a.firstName + a.lastName).localeCompare(b.firstName + b.lastName)
+          ); // Sort alphabetically
+
+          contacts.forEach((contact) => {
+            const listItem = document.createElement("li");
+            listItem.classList.add(
+              "flex",
+              "items-center",
+              "space-x-3",
+              "p-2",
+              "rounded-lg",
+              "hover:bg-blue-50",
+              "cursor-pointer",
+              "transition",
+              "duration-200"
+            );
+            listItem.dataset.contactId = contact.id; // Store ID for click events
+
+            const avatar = contact.firstName
+              ? contact.firstName.charAt(0).toUpperCase()
+              : "";
+            listItem.innerHTML = `
+                        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 rounded-full font-medium text-sm">
+                            ${avatar}
+                        </div>
+                        <div class="flex-1">
+                            <p class="font-medium text-gray-800">${
+                              contact.firstName
+                            } ${contact.lastName || ""}</p>
+                            <p class="text-xs text-gray-500">${
+                              contact.companyName || "Tidak ada perusahaan"
+                            }</p>
+                        </div>
+                        ${
+                          contact.isFavorited
+                            ? `
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.92 8.72a1 1 0 01.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
+                        </svg>`
+                            : ""
+                        }
+                    `;
+            listItem.addEventListener("click", () => {
+              const contactId = parseInt(listItem.dataset.contactId);
+              const selectedContact = contacts.find((c) => c.id === contactId);
+              if (selectedContact) {
+                fillForm(selectedContact);
+                contactFormSection.classList.remove("hidden");
+                contactsListSection.classList.add("hidden");
+                sidebarContactsLink.classList.remove(
+                  "font-bold",
+                  "text-blue-700",
+                  "bg-blue-50"
+                );
+                createContactButton.classList.remove(
+                  "bg-gray-200",
+                  "text-gray-600"
+                );
+                createContactButton.classList.add("bg-blue-500", "text-white");
+              }
+            });
+            contactsList.appendChild(listItem);
+          });
+        }
+
+        // --- Event Listeners ---
+
+        // Save Button Logic
+        saveButton.addEventListener("click", (e) => {
+          e.preventDefault(); // Prevent default form submission
+
+          const formData = getFormValues();
+          const contactId = formData.id;
+
+          if (contactId) {
+            // Update existing contact
+            const index = contacts.findIndex((c) => c.id === contactId);
+            if (index !== -1) {
+              // Merge existing data with new form data
+              // Be careful with array fields like email and phone to replace them entirely
+              contacts[index] = {
+                ...contacts[index], // Keep old data if not provided in form (e.g., createdAt)
+                ...formData,
+                email: formData.email, // Replace email array
+                phone: formData.phone, // Replace phone array
+                createdAt: contacts[index].createdAt || new Date(), // Keep original createdAt or set new
+                isFavorited: formData.isFavorited, // Ensure boolean
+              };
+            }
+          } else {
+            // Add new contact
+            const newId =
+              contacts.length > 0
+                ? Math.max(...contacts.map((c) => c.id)) + 1
+                : 1;
+            const newContact = {
+              id: newId,
+              ...formData,
+              email: formData.email,
+              phone: formData.phone,
+              createdAt: new Date(),
+              isFavorited: formData.isFavorited, // Ensure boolean
+            };
+            contacts.push(newContact);
+          }
+
+          console.log("Contacts after save:", contacts); // Debug: check updated array
+          resetForm(); // Reset form after saving
+          renderContactsList(); // Re-render the list to show new/updated contact
+          showContactsList(); // Show the list after saving a contact
+        });
+
+        // "Buat kontak" button in sidebar
+        createContactButton.addEventListener("click", () => {
+          resetForm();
+          contactFormSection.classList.remove("hidden");
+          contactsListSection.classList.add("hidden");
+          contactFormTitle.textContent = "Buat Kontak Baru";
+          backToContactsButton.classList.add("hidden");
+          createContactButton.classList.remove("bg-blue-500", "text-white");
+          createContactButton.classList.add("bg-gray-200", "text-gray-600"); // Indicate "new" mode
+          sidebarContactsLink.classList.remove(
+            "font-bold",
+            "text-blue-700",
+            "bg-blue-50"
+          );
+        });
+
+        // "Kontak" link in sidebar (to show the list)
+        sidebarContactsLink.addEventListener("click", (e) => {
+          e.preventDefault();
+          showContactsList();
+        });
+
+        // "Back to Contacts" button in form header
+        backToContactsButton.addEventListener("click", (e) => {
+          e.preventDefault();
+          showContactsList();
+        });
+
+        // Helper to show contacts list and hide form
+        function showContactsList() {
+          contactFormSection.classList.add("hidden");
+          contactsListSection.classList.remove("hidden");
+          sidebarContactsLink.classList.add(
+            "font-bold",
+            "text-blue-700",
+            "bg-blue-50"
+          );
+          createContactButton.classList.remove("bg-gray-200", "text-gray-600");
+          createContactButton.classList.add("bg-blue-500", "text-white"); // Reset create button visual
+        }
+
+        // Initial setup on page load
+        // Add event listeners to initial email/phone fields
+        document
+          .getElementById("email1")
+          .addEventListener("input", updateSaveButtonState);
+        document
+          .getElementById("phone1")
+          .addEventListener("input", updateSaveButtonState);
+        document
+          .getElementById("phoneLabel1")
+          .addEventListener("change", updateSaveButtonState);
+
+        // Add new email/phone buttons
+        addEmailButton.addEventListener("click", () => {
+          addEmailField();
+          updateSaveButtonState();
+        });
+        addPhoneButton.addEventListener("click", () => {
+          addPhoneField();
+          updateSaveButtonState();
+        });
+
+        // Set initial state of the form to empty and render list
+        resetForm(); // Start with a fresh empty form
+        renderContactsList(); // Render initial list
+        showContactsList(); // Show the list by default
+      });
+    </script>
+  </body>
+</html>
