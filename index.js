@@ -1,103 +1,114 @@
 const contacts = [
   {
     id: 1,
-    firstName: "Salasa",
-    lastName: "id",
-    companyName: "Tech Solutions",
+    firstName: "Akhirudin",
+    lastName: "Salasa",
+    company: {
+      name: "PT. Tech Solutions",
+      industry: "Software Engineering",
+    },
     jobTitle: "Software Engineer",
     email: "salasa@example.com",
-    phone: "+62 123-456-7890",
-    createdAt: new Date(),
-    website: "https://salasa.id",
+    phoneNumber: "+62 123-456-7890",
+    websiteUrl: "https://salasa.id",
     isFavorited: true,
+    createdAt: new Date(),
   },
   {
     id: 2,
     firstName: "Pramudia",
     lastName: "Adi",
-    companyName: "Business Corp",
+    company: {
+      name: "Business Corp",
+      industry: "Management",
+    },
     jobTitle: "Project Manager",
     email: "pramudia@example.com",
     phone: "+62 987-654-3210",
-    createdAt: new Date("06-26-2025"),
-    website: "https://pramudia.com",
+    websiteUrl: "https://pramudia.com",
     isFavorited: true,
+    createdAt: new Date("06-26-2025"),
   },
   {
     id: 3,
     firstName: "Aysha",
     lastName: "Shifa",
-    companyName: "Creative Agency",
+    company: {
+      name: "Creative Agency",
+      industry: "Design",
+    },
     jobTitle: "UX Designer",
     email: "aysha@example.com",
     phone: "+62 555-123-4567",
-    website: "https://ayshashifa.com",
-    createdAt: new Date().toLocaleString(),
+    websiteUrl: "https://ayshashifa.com",
     isFavorited: false,
+    createdAt: new Date(),
   },
   {
     id: 4,
     firstName: "Daniyal",
     lastName: "Said",
-    companyName: "Tesla",
+    company: {
+      name: "Tesla",
+      industry: "Automotive",
+    },
     jobTitle: "Content Strategist",
     email: "daniyal@example.com",
     phone: "+62 555-987-6543",
-    website: "https://daniyalsaid.com",
-    createdAt: new Date().toLocaleDateString(),
+    websiteUrl: "https://daniyalsaid.com",
     isFavorited: true,
+    createdAt: new Date(),
   },
 ];
 
-console.log(contacts);
+// --------------------------------
 
-/* Get all contacts */
+function displayAllContacts() {
+  console.log("\nDisplay all contacts:");
 
-function getAllContacts() {
   for (let contact of contacts) {
-    console.log(
-      contact.firstName,
-      contact.lastName,
-      contact.phone,
-      contact.createdAt
-    );
+    displayContact(contact);
+    // TODO: Display all contacts in a more structured way
   }
 }
 
-getAllContacts();
-
-/* Get contact by job title */
-function getContact() {
-  const jobTitle = contacts[2];
-  return jobTitle;
+function displayContact(contact) {
+  console.log(`${contact.firstName} ${contact.lastName}, ${contact.jobTitle}, ${contact.company.name}`);
 }
-const contact = getContact();
-console.log(contact);
 
-/* Add contact */
-let addContact = [
-  {
-    id: 5,
-    firstName: "John",
-    lastName: "Doe",
-    companyName: "New Company",
-    jobTitle: "Developer",
-    email: "john.doe@example.com",
-    phone: "+62 123-456-7890",
-    createdAt: new Date().toLocaleDateString(),
-    website: "https://johndoe.com",
-    isFavorited: false,
-  },
-];
-function addNewContact(newContact) {
+function addNewContact(contact) {
+  const newContact = {
+    id: contacts[contacts.length - 1].id + 1 || 1,
+    ...contact,
+  };
+
   contacts.push(newContact);
 }
-addNewContact(addContact[0]);
-console.log(contacts);
 
-/* Get contact by id */
 function getContactById(id) {
   return contacts.find((contact) => contact.id === id);
 }
-const contactID5 = getContactById(5);
-console.log(contactID5.firstName, contactID5.lastName);
+
+// --------------------------------
+
+const newContact = {
+  firstName: "John",
+  lastName: "Doe",
+  company: {
+    name: "New Company",
+  },
+  jobTitle: "Developer",
+  email: "john.doe@example.com",
+  phone: "+62 123-456-7890",
+  createdAt: new Date(),
+  websiteUrl: "https://johndoe.com",
+  isFavorited: false,
+};
+
+addNewContact(newContact);
+
+const contactId5 = getContactById(5);
+
+displayContact(contactId5);
+
+displayAllContacts();
