@@ -1,20 +1,28 @@
 # linkup.salasa.id
 
-![logo](./logo.png)
+![logo](/assets/icons/linkup-logo.png)
 
 > Linkup is a simple contact book that allows you to manage your contacts easily.
+> [linkup.salasa.id](https://linkup.salasa.id)
 
 ## Features
 
-- Contact list
+> There are two modes: `dark`, `light`
+
 - Search contacts
-- Action : Manage Contacts
+- Contact list
   - Add Contact
   - Edit Contact
   - Delete Contact
-
-> role: `frontend`, `backend`, `fullstack`, `design`
-> mode: `dark`, `light`
-> responsive design
+- Trash
+  - Restore Contact
+  - Delete Contact
+- Label
+  - Add Label
+  - Edit Label
+  - Delete Label
 
 ## Screenshots
+
+> Flowchart of the Linkup
+> ![Flowchart of the Linkup](/assets/images/flowchart-linkup.drawio.png)
