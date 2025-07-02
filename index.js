@@ -57,6 +57,7 @@ let dataContacts = [
   },
 ];
 
+// RENDER / SHOW / DISPLAY CONTACTS
 function renderContacts(contacts) {
   contacts.forEach((contact) => {
     const fullName = `${contact.firstName} ${contact.lastName}`;
@@ -85,6 +86,7 @@ renderContacts(dataContacts);
 
 // -----------------------------
 
+// SEARCH CONTACTS
 function searchContacts(contacts, searchTerm) {
   const searchedContact = contacts.filter((contact) => {
     return (contact.fullName = `${contact.firstName} ${contact.lastName}`
@@ -103,10 +105,12 @@ searchContacts(dataContacts, "id");
 
 // -----------------------------
 
+// GENERATE ID
 function generateId(contacts) {
   return contacts[contacts.length - 1].id + 1;
 }
 
+// ADD NEW CONTACT / CREATE CONTACT
 function addNewContact(contacts, newContactInput) {
   const newContact = {
     id: generateId(contacts),
@@ -131,6 +135,7 @@ function addNewContact(contacts, newContactInput) {
 
 // -----------------------------
 
+// DELETE CONTACT
 function deleteContact(contacts, contactId) {
   const filteredContacts = contacts.filter(
     (contact) => contact.id !== contactId
@@ -140,8 +145,13 @@ function deleteContact(contacts, contactId) {
   console.log(`Contact with ID ${contactId} has been deleted.`);
 }
 
+updateContact(dataContacts, 2, {
+  lastName: "Diadiadia",
+  isFavorited: false,
+});
 // -----------------------------
 
+// UPDATE CONTACT
 function updateContact(contacts, contactId, updatedContactInput) {
   const originalContact = contacts.find((contact) => contact.id === contactId);
 
@@ -190,10 +200,6 @@ addNewContact(dataContacts, {
   websiteUrl: "https://johnwick.com",
   isFavorited: true,
   createdAt: new Date(),
-});
-
-updateContact(dataContacts, 2, {
-  isFavorited: false,
 });
 
 // ------------------------------
