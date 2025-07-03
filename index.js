@@ -64,7 +64,6 @@ function renderContacts(contacts) {
     const formattedDate = new Intl.DateTimeFormat("en-UK", {
       dateStyle: "medium",
       timeStyle: "short",
-      timeZone: "Asia/Jakarta",
     }).format(contact.createdAt);
 
     console.log(`
@@ -82,8 +81,6 @@ function renderContacts(contacts) {
   });
 }
 
-renderContacts(dataContacts);
-
 // -----------------------------
 
 // SEARCH CONTACTS
@@ -100,8 +97,6 @@ function searchContacts(contacts, searchTerm) {
     console.log(`Found ${searchedContact.length} contact(s) : "${searchTerm}"`);
   }
 }
-
-searchContacts(dataContacts, "id");
 
 // -----------------------------
 
@@ -145,10 +140,6 @@ function deleteContact(contacts, contactId) {
   console.log(`Contact with ID ${contactId} has been deleted.`);
 }
 
-updateContact(dataContacts, 2, {
-  lastName: "Diadiadia",
-  isFavorited: false,
-});
 // -----------------------------
 
 // UPDATE CONTACT
@@ -187,6 +178,15 @@ function updateContact(contacts, contactId, updatedContactInput) {
 }
 
 // ------------------------------
+
+renderContacts(dataContacts);
+
+searchContacts(dataContacts, "id");
+
+updateContact(dataContacts, 2, {
+  lastName: "Saja",
+  isFavorited: false,
+});
 
 addNewContact(dataContacts, {
   firstName: "John",
