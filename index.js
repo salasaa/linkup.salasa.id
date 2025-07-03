@@ -64,7 +64,6 @@ function renderContacts(contacts) {
     const formattedDate = new Intl.DateTimeFormat("en-UK", {
       dateStyle: "medium",
       timeStyle: "short",
-      timeZone: "Asia/Jakarta",
     }).format(contact.createdAt);
 
     console.log(`
@@ -73,16 +72,12 @@ function renderContacts(contacts) {
     Phone: ${contact.phoneNumber || "N/A"}
     Email: ${contact.email || "N/A"}
     Website: ${contact.websiteUrl || "N/A"}
-    Company: ${contact.company.name || "N/A"} (${
-      contact.company.jobTitle || "N/A"
-    })
+    Company: ${contact.company.name || "N/A"} (${contact.company.jobTitle || "N/A"})
     Created At: ${formattedDate || "N/A"}
     Favorited: ${contact.isFavorited ? "Yes" : "No"}
     `);
   });
 }
-
-renderContacts(dataContacts);
 
 // -----------------------------
 
@@ -100,8 +95,6 @@ function searchContacts(contacts, searchTerm) {
     console.log(`Found ${searchedContact.length} contact(s) : "${searchTerm}"`);
   }
 }
-
-searchContacts(dataContacts, "id");
 
 // -----------------------------
 
@@ -137,18 +130,12 @@ function addNewContact(contacts, newContactInput) {
 
 // DELETE CONTACT
 function deleteContact(contacts, contactId) {
-  const filteredContacts = contacts.filter(
-    (contact) => contact.id !== contactId
-  );
+  const filteredContacts = contacts.filter((contact) => contact.id !== contactId);
   dataContacts = filteredContacts;
   renderContacts(dataContacts);
   console.log(`Contact with ID ${contactId} has been deleted.`);
 }
 
-updateContact(dataContacts, 2, {
-  lastName: "Diadiadia",
-  isFavorited: false,
-});
 // -----------------------------
 
 // UPDATE CONTACT
@@ -161,17 +148,13 @@ function updateContact(contacts, contactId, updatedContactInput) {
     lastName: updatedContactInput.lastName || originalContact.lastName,
     company: {
       name: updatedContactInput.company?.name || originalContact.company.name,
-      jobTitle:
-        updatedContactInput.company?.jobTitle ||
-        originalContact.company.jobTitle,
+      jobTitle: updatedContactInput.company?.jobTitle || originalContact.company.jobTitle,
     },
     email: updatedContactInput.email || originalContact.email,
     phoneNumber: updatedContactInput.phoneNumber || originalContact.phoneNumber,
     websiteUrl: updatedContactInput.websiteUrl || originalContact.websiteUrl,
     isFavorited:
-      updatedContactInput.isFavorited !== undefined
-        ? updatedContactInput.isFavorited
-        : originalContact.isFavorited,
+      updatedContactInput.isFavorited !== undefined ? updatedContactInput.isFavorited : originalContact.isFavorited,
     createdAt: originalContact.createdAt,
   };
 
@@ -187,6 +170,15 @@ function updateContact(contacts, contactId, updatedContactInput) {
 }
 
 // ------------------------------
+
+renderContacts(dataContacts);
+
+searchContacts(dataContacts, "id");
+
+updateContact(dataContacts, 2, {
+  lastName: "Diadiadia",
+  isFavorited: false,
+});
 
 addNewContact(dataContacts, {
   firstName: "John",
