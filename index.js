@@ -103,6 +103,7 @@ function searchContacts(contacts, searchTerm) {
 // GENERATE ID
 function generateId(contacts) {
   return contacts[contacts.length - 1].id + 1;
+  // condition
 }
 
 // ADD NEW CONTACT / CREATE CONTACT
