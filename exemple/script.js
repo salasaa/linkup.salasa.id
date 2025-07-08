@@ -1,19 +1,20 @@
 // Get references to DOM elements
 const createContactBtn = document.getElementById("createContactBtn");
+const contactListView = document.getElementById("contactListView");
 const createContactView = document.getElementById("createContactView");
 const cancelCreateBtn = document.getElementById("cancelCreateBtn");
 const createContactForm = document.getElementById("createContactForm");
 
 // Event listener for "Create contact" button
 createContactBtn.addEventListener("click", () => {
-  contactListElement.classList.add("hidden"); // Hide contact list view
+  contactListView.classList.add("hidden"); // Hide contact list view
   createContactView.classList.remove("hidden"); // Show form view
 });
 
 // Event listener for "Cancel" button on "Create Contact" form
 cancelCreateBtn.addEventListener("click", () => {
   createContactView.classList.add("hidden"); // Hide form view
-  contactListElement.classList.remove("hidden"); // Show contact list view again
+  contactListView.classList.remove("hidden"); // Show contact list view again
   createContactForm.reset(); // Reset the form
 });
 
@@ -30,7 +31,7 @@ createContactForm.addEventListener("submit", (event) => {
 
   // After saving, return to the contact list view
   createContactView.classList.add("hidden");
-  contactListElement.classList.remove("hidden");
+  contactListView.classList.remove("hidden");
   createContactForm.reset(); // Reset form after submission
   // Using alert temporarily, replace with custom modal
   // IMPORTANT: Do NOT use alert() or confirm() in production code for Canvas.

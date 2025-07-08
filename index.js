@@ -11,7 +11,7 @@ let dataContacts = [
     phoneNumber: "+62 123-456-7890",
     websiteUrl: "https://salasa.id",
     isFavorited: true,
-    createdAt: new Date(),
+    createdAt: new Date("2025-06-15"),
   },
   {
     id: 2,
@@ -25,7 +25,7 @@ let dataContacts = [
     phoneNumber: "+62 987-654-3210",
     websiteUrl: "https://pramudia.com",
     isFavorited: true,
-    createdAt: new Date(),
+    createdAt: new Date("2025-06-18"),
   },
   {
     id: 3,
@@ -39,7 +39,7 @@ let dataContacts = [
     phoneNumber: "+62 555-123-4567",
     websiteUrl: "https://ayshashifa.com",
     isFavorited: false,
-    createdAt: new Date(),
+    createdAt: new Date("2025-06-30"),
   },
   {
     id: 4,
@@ -53,48 +53,85 @@ let dataContacts = [
     phoneNumber: "+62 555-987-6543",
     websiteUrl: "https://daniyalsaid.com",
     isFavorited: true,
-    createdAt: new Date(),
+    createdAt: new Date("2025-07-05"),
   },
 ];
 
-// RENDER / SHOW / DISPLAY CONTACTS
+// -----------------------------
+function loadContacts() {
+  dataContacts = loadContactsFromLocalStorage();
+  if (dataContacts.length === 0) {
+    console.log("No contacts found.");
+    return;
+  }
+}
+
 function renderContacts(contacts) {
-  contacts.forEach((contact) => {
-    const fullName = `${contact.firstName} ${contact.lastName}`;
-    const formattedDate = new Intl.DateTimeFormat("en-UK", {
+  // const contactListElement = document.getElementById("contacts-list");
+  loadContacts();
+
+  if (!dataContacts || dataContacts.length === 0) {
+    console.log("No contacts available to display.");
+    return;
+  }
+
+  dataContacts.forEach((contact) => {
+    const fullName = `${contact.firstName} ${contact.lastName}`.trim();
+    const createdAt = new Intl.DateTimeFormat("en-UK", {
       dateStyle: "medium",
       timeStyle: "short",
-    }).format(contact.createdAt);
+      timeZone: "Asia/Jakarta",
+    }).format(new Date(contact.createdAt));
 
     console.log(`
-    ID: ${contact.id || "N/A"}
-    Full Name: ${fullName || "N/A"}
-    Phone: ${contact.phoneNumber || "N/A"}
-    Email: ${contact.email || "N/A"}
-    Website: ${contact.websiteUrl || "N/A"}
-    Company: ${contact.company.name || "N/A"} (${
+      ID        : ${contact.id || "N/A"}
+      Full Name : ${fullName || "N/A"}
+      Phone     : ${contact.phoneNumber || "N/A"}
+      Email     : ${contact.email || "N/A"}
+      Website   : ${contact.websiteUrl || "N/A"}
+      Company   : ${contact.company.name || "N/A"} (${
       contact.company.jobTitle || "N/A"
     })
-    Created At: ${formattedDate || "N/A"}
-    Favorited: ${contact.isFavorited ? "Yes" : "No"}
+      Created At: ${createdAt || "N/A"}
+      Favorited: ${contact.isFavorited ? "Yes" : "No"}
     `);
   });
 }
+
+// -----------------------------
+// SAVE CONTACTS TO LOCAL STORAGE
+// localStorage.setItem("storage-contacts", JSON.stringify(dataContacts));
 
 // -----------------------------
 
 // SEARCH CONTACTS
 function searchContacts(contacts, searchTerm) {
   const searchedContact = contacts.filter((contact) => {
-    return (contact.fullName = `${contact.firstName} ${contact.lastName}`
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase()));
+    const fullName = `${contact.firstName} ${contact.lastName}`;
+
+    return (
+      fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      contact.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      contact.phoneNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      contact.company.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      contact.company.jobTitle.toLowerCase().includes(searchTerm.toLowerCase())
+    );
   });
   renderContacts(searchedContact);
+
   if (searchedContact.length === 0) {
     console.log(`No contacts found : "${searchTerm}"`);
   } else {
     console.log(`Found ${searchedContact.length} contact(s) : "${searchTerm}"`);
+    searchedContact.forEach((contact) => {
+      const fullName = `${contact.firstName} ${contact.lastName}`.trim();
+      console.log(`
+        ${fullName}, 
+        ${contact.email}, 
+        ${contact.phoneNumber}, 
+        ${contact.company.name} (${contact.company.jobTitle}),
+      `);
+    });
   }
 }
 
@@ -102,9 +139,12 @@ function searchContacts(contacts, searchTerm) {
 
 // GENERATE ID
 function generateId(contacts) {
-  return contacts[contacts.length - 1].id + 1;
-  // condition
+  if (contacts.length === 0) {
+    return 0; // If no contacts, start with ID 0
+  }
+  return contacts[contacts.length - 1].id + 1 || 0;
 }
+// -----------------------------
 
 // ADD NEW CONTACT / CREATE CONTACT
 function addNewContact(contacts, newContactInput) {
@@ -124,9 +164,9 @@ function addNewContact(contacts, newContactInput) {
   };
   const newContacts = [...contacts, newContact];
 
-  dataContacts = newContacts;
+  saveContactsToLocalStorage(newContacts);
 
-  renderContacts(newContacts);
+  renderContacts();
 }
 
 // -----------------------------
@@ -136,8 +176,10 @@ function deleteContact(contacts, contactId) {
   const filteredContacts = contacts.filter(
     (contact) => contact.id !== contactId
   );
-  dataContacts = filteredContacts;
-  renderContacts(dataContacts);
+
+  saveContactsToLocalStorage(filteredContacts);
+  renderContacts(filteredContacts);
+
   console.log(`Contact with ID ${contactId} has been deleted.`);
 }
 
@@ -174,33 +216,36 @@ function updateContact(contacts, contactId, updatedContactInput) {
     return contact;
   });
 
-  dataContacts = updatedContacts;
-  renderContacts(dataContacts);
+  saveContactsToLocalStorage(updatedContacts);
+  renderContacts();
 }
 
 // ------------------------------
 
-renderContacts(dataContacts);
-
 searchContacts(dataContacts, "id");
+renderContacts();
 
-updateContact(dataContacts, 2, {
-  lastName: "Saja",
-  isFavorited: false,
-});
+// updateContact(dataContacts, 6, {
+//   lastName: "Cena",
+//   isFavorited: false,
+//   company: {
+//     name: "WWE",
+//     jobTitle: "Wrestler",
+//   },
+// });
 
-addNewContact(dataContacts, {
-  firstName: "John",
-  lastName: "Wick",
-  company: {
-    name: "New Company",
-    jobTitle: "New Job Title",
-  },
-  email: "john.wick@example.com",
-  phoneNumber: "+62 123-456-7890",
-  websiteUrl: "https://johnwick.com",
-  isFavorited: true,
-  createdAt: new Date(),
-});
+// addNewContact(dataContacts, {
+//   firstName: "John",
+//   lastName: "Wick",
+//   company: {
+//     name: "New Company",
+//     jobTitle: "New Job Title",
+//   },
+//   email: "john.wick@example.com",
+//   phoneNumber: "+62 123-456-7890",
+//   websiteUrl: "https://johnwick.com",
+//   isFavorited: true,
+//   createdAt: new Date(),
+// });
 
 // ------------------------------
