@@ -2,7 +2,7 @@ async function getContacts() {
   // Fetch contacts from the API
   try {
     const response = await fetch(
-      "https://my-json-server.typicode.com/salasaa/json-server-online",
+      "https://my-json-server.typicode.com/salasaa/json-server-online/contacts",
       {
         method: "GET",
       }
