@@ -1,11 +1,18 @@
 async function getContacts() {
   // Fetch contacts from the API
-  const response = await fetch(
-    "https://my-json-server.typicode.com/salasaa/json-server-online"
-  );
-  // condition testing
-  const users = await response.json();
-  console.log(users);
+  try {
+    const response = await fetch(
+      "https://my-json-server.typicode.com/salasaa/json-server-online",
+      {
+        method: "GET",
+      }
+    );
+    // condition testing
+    const users = await response.json();
+    console.log(users);
+  } catch (error) {
+    console.error("Error fetching contacts:", error);
+  }
 }
 
 getContacts();
