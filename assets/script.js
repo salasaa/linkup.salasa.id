@@ -37,3 +37,29 @@ createContactForm.addEventListener("submit", (event) => {
   // Use a custom modal UI instead.
   alert("Contact saved successfully!");
 });
+
+// Get references to DOM elements
+const createContactForm = document.getElementById("createContactForm");
+
+// Event listener for "Create Contact" form submission
+createContactForm.addEventListener("submit", (event) => {
+  event.preventDefault(); // Mencegah refresh halaman
+
+  const formData = new FormData(createContactForm);
+  const newContact = {};
+  for (let [key, value] of formData.entries()) {
+    newContact[key] = value;
+  }
+  console.log("New Contact Data:", newContact);
+
+  // --- logic for save new contact ---
+  // Saving contact data to localStorage
+  let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+  contacts.push(newContact);
+  localStorage.setItem("contacts", JSON.stringify(contacts));
+  // --- End Logic ---
+
+  // Redirect back to the main page after saving
+  alert("Contact saved successfully!"); // Replace with a better modal UI
+  window.location.href = "index.html"; // Redirect to the main page
+});

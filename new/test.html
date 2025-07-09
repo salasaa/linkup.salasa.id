@@ -116,7 +116,7 @@
           <div>
             <a
               href="/"
-              class="w-full bg-green-400 text-white py-4 px-4 rounded-lg flex items-center justify-center space-x-2 hover:bg-green-500 transition-colors duration-200 mb-6 shadow-md"
+              class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg flex items-center justify-center space-x-2 hover:bg-blue-700 transition-colors duration-200 mb-6 shadow-md"
             >
               <i class="fas fa-user"></i>
               <span>View Contacts</span>
@@ -134,19 +134,7 @@
                 </span>
                 <span class="text-gray-500 text-sm">3</span>
               </div>
-
-              <div
-                class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 cursor-pointer"
-              >
-                <span
-                  class="flex items-center space-x-2 text-gray-700 font-medium"
-                >
-                  <i class="fas fa-trash-alt text-red-500"></i>
-                  <span>Trash</span>
-                </span>
-                <span class="text-gray-500 text-sm"></span>
-              </div>
-
+              <div class="border-t border-gray-200 my-4"></div>
               <div
                 class="flex items-center justify-between p-2 rounded-lg text-gray-700 font-medium"
               >
@@ -155,7 +143,6 @@
                 </span>
                 <i class="fas fa-plus text-gray-500"></i>
               </div>
-              <div class="border-t border-gray-200 my-4"></div>
               <div
                 class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 cursor-pointer"
               >
@@ -188,10 +175,45 @@
           </div>
         </aside>
 
+        <!-- Main Content Area (Contact List or Create Contact Form) -->
         <main id="contentArea" class="flex-1 p-6 bg-gray-50 flex flex-col">
+          <!-- Added flex flex-col here -->
+          <!-- Contact List View (Default) -->
+          <div
+            id="contactListView"
+            class="sticky top-0 bg-white rounded-lg shadow-md p-6 flex flex-col flex-1"
+          >
+            <!-- Added flex flex-col flex-1 here -->
+            <h2
+              class="sticky top-0 bg-white text-xl font-semibold text-gray-800 mb-4"
+            >
+              Contacts (5)
+            </h2>
+
+            <!-- Table Header - Made sticky -->
+            <ul
+              class="grid grid-cols-contact-table gap-4 py-2 px-4 border-b border-gray-200 text-gray-600 font-medium text-sm"
+            >
+              <li>Name</li>
+              <li>Email</li>
+              <li>Phone Number</li>
+              <li>Job title & company</li>
+              <li class="text-right">Actions</li>
+              <!-- Column for action icons -->
+            </ul>
+
+            <!-- Scrollable Content Area for Contact Items -->
+            <div id="contacts-list" class="flex-1 overflow-y-auto mt-2">
+              <!-- Added flex-1 and overflow-y-auto here -->
+
+              <!-- Contacts Section -->
+            </div>
+          </div>
+
+          <!-- Create Contact View (Initially Hidden) -->
           <div
             id="createContactView"
-            class="bg-white rounded-lg shadow-md p-6 flex-1"
+            class="bg-white rounded-lg shadow-md p-6 hidden"
           >
             <h2 class="text-xl font-semibold text-gray-800 mb-6">
               Create New Contact
@@ -283,15 +305,16 @@
                 ></textarea>
               </div>
               <div class="flex justify-end space-x-3 mt-6">
-                <a
-                  href="index.html"
-                  class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors duration-200 flex items-center justify-center"
+                <button
+                  type="button"
+                  id="cancelCreateBtn"
+                  class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors duration-200"
                 >
                   Cancel
-                </a>
+                </button>
                 <button
                   type="submit"
-                  class="px-4 py-2 bg-green-400 text-white rounded-md hover:bg-green-500 transition-colors duration-200"
+                  class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200"
                 >
                   Save Contact
                 </button>
@@ -302,6 +325,34 @@
       </div>
     </div>
 
-    <script src="/assets/script.js"></script>
+    <script>
+      // Dapatkan referensi ke form
+      const createContactForm = document.getElementById("createContactForm");
+
+      // Event listener for "Create Contact" form submission
+      createContactForm.addEventListener("submit", (event) => {
+        event.preventDefault(); // Mencegah refresh halaman
+
+        const formData = new FormData(createContactForm);
+        const newContact = {};
+        for (let [key, value] of formData.entries()) {
+          newContact[key] = value;
+        }
+        console.log("New Contact Data:", newContact);
+
+        // --- Logic untuk menyimpan data kontak ---
+        // Di sini Anda biasanya akan mengirim data ke server (menggunakan Fetch API)
+        // atau menyimpannya ke Local Storage.
+        // Contoh penyimpanan ke Local Storage (sangat sederhana):
+        let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+        contacts.push(newContact);
+        localStorage.setItem("contacts", JSON.stringify(contacts));
+        // --- Akhir Logic ---
+
+        // Arahkan kembali ke halaman utama setelah menyimpan
+        alert("Contact saved successfully!"); // Ganti dengan UI modal yang lebih baik
+        window.location.href = "index.html"; // Redirect ke halaman utama
+      });
+    </script>
   </body>
 </html>

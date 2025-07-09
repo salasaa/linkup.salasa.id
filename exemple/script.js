@@ -1,5 +1,5 @@
 // Get references to DOM elements
-const createContactBtn = document.getElementById("createContactBtn");
+// const createContactBtn = document.getElementById("createContactBtn");
 const contactListView = document.getElementById("contactListView");
 const createContactView = document.getElementById("createContactView");
 const cancelCreateBtn = document.getElementById("cancelCreateBtn");

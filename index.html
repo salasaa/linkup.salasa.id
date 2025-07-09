@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-white dark:bg-gray-950">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,328 +31,355 @@
     <script>
       tailwind.config = {
         darkMode: "class",
-        theme: {
-          extend: {
-            fontFamily: {
-              caveat: ["Caveat", "cursive"],
-              brush: ["Caveat Brush", "cursive"],
-            },
-          },
-        },
+        theme: {},
       };
     </script>
+    <style>
+      /* Custom grid columns for the contact table */
+      .grid-cols-contact-table {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr; /* Adjusted for actions column */
+      }
+    </style>
   </head>
-  <body
-    class="font-inter bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col"
-  >
-    <!-- Header -->
-    <header
-      class="site-header w-full bg-white/30 dark:bg-gray-950/50 backdrop-blur-2xl sticky top-0 z-30 transition-all duration-300"
-    >
-      <div
-        class="max-w-4xl mx-auto flex items-center justify-between py-4 px-4 gap-4"
+  <body class="flex flex-col min-h-screen">
+    <div class="flex flex-col flex-1 bg-gray-100">
+      <!-- Header -->
+      <header
+        class="site-header w-full bg-white/30 dark:bg-gray-950/50 backdrop-blur-2xl sticky top-0 z-30 transition-all duration-300"
       >
-        <a href="/">
-          <img alt="linkup" src="/assets/icons/linkup-logo.png" />
-        </a>
-        <!-- Search Bar -->
         <div
-          class="relative flex items-center w-full max-w-lg md:max-w-md lg:max-w-lg"
+          class="max-w-4xl mx-auto flex items-center justify-between py-4 px-4 gap-4"
         >
-          <i class="fas fa-search absolute left-3 text-gray-400"></i>
-          <input
-            type="text"
-            placeholder="Searching"
-            class="pl-10 pr-4 py-2 rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
-          />
-        </div>
-        <!-- Search & Dark Mode Toggle -->
-        <div class="flex items-center gap-1">
-          <!-- Dark/Light Toggle Button -->
-          <button
-            id="theme-toggle"
-            type="button"
-            aria-label="Toggle dark mode"
-            class="p-2 rounded-full bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 text-green-500 hover:bg-gray-200 dark:hover:bg-gray-800 transition"
-          >
-            <svg
-              id="icon-sun"
-              class="h-5 w-5 block dark:hidden"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-            >
-              <circle cx="12" cy="12" r="5" stroke="currentColor" />
-              <path
-                stroke-linecap="round"
-                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
-              />
-            </svg>
-            <svg
-              id="icon-moon"
-              class="h-5 w-5 hidden dark:block"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"
-              />
-            </svg>
-          </button>
-          <!-- Search Toggle Button -->
-          <a
-            href=""
-            aria-label="Go to search page"
-            class="p-2 rounded-full bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-800 transition"
-          >
-            <svg
-              class="h-5 w-5"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
+          <a href="/">
+            <img alt="linkup" src="/assets/icons/linkup-logo.png" />
           </a>
-        </div>
-      </div>
-    </header>
-
-    <!-- Main Content -->
-    <!-- Content Area -->
-    <div class="flex flex-1">
-      <!-- Left Sidebar -->
-      <aside
-        class="w-64 bg-white shadow-md p-4 flex flex-col justify-between overflow-y-auto hide-scrollbar"
-      >
-        <div>
-          <!-- Create Contact Button -->
-          <button
-            id="createContactBtn"
-            class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg flex items-center justify-center space-x-2 hover:bg-blue-700 transition-colors duration-200 mb-6 shadow-md"
+          <!-- Search Bar -->
+          <div
+            class="relative flex items-center w-full max-w-lg md:max-w-md lg:max-w-lg"
           >
-            <i class="fas fa-plus"></i>
-            <span>Create contact</span>
-          </button>
-
-          <!-- Navigation Links -->
-          <nav class="space-y-2">
-            <div
-              class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 cursor-pointer"
+            <i class="fas fa-search absolute left-3 text-gray-400"></i>
+            <input
+              type="text"
+              placeholder="Searching"
+              class="pl-10 pr-4 py-2 rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+            />
+          </div>
+          <!-- Search & Dark Mode Toggle -->
+          <div class="flex items-center gap-1">
+            <!-- Dark/Light Toggle Button -->
+            <button
+              id="theme-toggle"
+              type="button"
+              aria-label="Toggle dark mode"
+              class="p-2 rounded-full bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 text-green-500 hover:bg-gray-200 dark:hover:bg-gray-800 transition"
             >
-              <span
-                class="flex items-center space-x-2 text-gray-700 font-medium"
+              <svg
+                id="icon-sun"
+                class="h-5 w-5 block dark:hidden"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
               >
-                <i class="fas fa-user text-blue-500"></i>
-                <span>Contact</span>
-              </span>
-              <span class="text-gray-500 text-sm">3</span>
-            </div>
-            <div
-              class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 cursor-pointer"
-            >
-              <span
-                class="flex items-center space-x-2 text-gray-700 font-medium"
+                <circle cx="12" cy="12" r="5" stroke="currentColor" />
+                <path
+                  stroke-linecap="round"
+                  d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+                />
+              </svg>
+              <svg
+                id="icon-moon"
+                class="h-5 w-5 hidden dark:block"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
               >
-                <i class="fas fa-trash-alt text-red-500"></i>
-                <span>Trash</span>
-              </span>
-              <span class="text-gray-500 text-sm"></span>
-            </div>
-            <div class="border-t border-gray-200 my-4"></div>
-            <div
-              class="flex items-center justify-between p-2 rounded-lg text-gray-700 font-medium"
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"
+                />
+              </svg>
+            </button>
+            <!-- Search Toggle Button -->
+            <a
+              href=""
+              aria-label="Go to search page"
+              class="p-2 rounded-full bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-800 transition"
             >
-              <span class="flex items-center space-x-2">
-                <span>Label</span>
-              </span>
-              <i class="fas fa-plus text-gray-500"></i>
-            </div>
-            <div
-              class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 cursor-pointer"
-            >
-              <span class="flex items-center space-x-2 text-gray-700">
-                <i class="fas fa-tag text-purple-500"></i>
-                <span>Work</span>
-              </span>
-            </div>
-            <div
-              class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 cursor-pointer"
-            >
-              <span class="flex items-center space-x-2 text-gray-700">
-                <i class="fas fa-tag text-orange-500"></i>
-                <span>Unknown</span>
-              </span>
-            </div>
-          </nav>
-        </div>
-
-        <!-- Copyright -->
-        <div class="text-center text-gray-500 text-xs mt-8">
-          2025 copyright . salasa.co.id
-        </div>
-      </aside>
-
-      <!-- Main Content Area (Contact List or Create Contact Form) -->
-      <main id="contentArea" class="flex-1 p-6 bg-gray-50 flex flex-col">
-        <!-- Added flex flex-col here -->
-        <!-- Contact List View (Default) -->
-        <div
-          id="contactListView"
-          class="sticky top-0 bg-white rounded-lg shadow-md p-6 flex flex-col flex-1"
-        >
-          <!-- Added flex flex-col flex-1 here -->
-          <h2
-            class="sticky top-0 bg-white text-xl font-semibold text-gray-800 mb-4"
-          >
-            Contacts (5)
-          </h2>
-
-          <!-- Table Header - Made sticky -->
-          <ul
-            class="grid grid-cols-contact-table gap-4 py-2 px-4 border-b border-gray-200 text-gray-600 font-medium text-sm"
-          >
-            <li>Name</li>
-            <li>Email</li>
-            <li>Phone Number</li>
-            <li>Job title & company</li>
-            <li class="text-right">Actions</li>
-            <!-- Column for action icons -->
-          </ul>
-
-          <!-- Scrollable Content Area for Contact Items -->
-          <div id="contacts-list" class="flex-1 overflow-y-auto mt-2">
-            <!-- Added flex-1 and overflow-y-auto here -->
-
-            <!-- Contacts Section -->
+              <svg
+                class="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </a>
           </div>
         </div>
+      </header>
 
-        <!-- Create Contact View (Initially Hidden) -->
-        <div
-          id="createContactView"
-          class="bg-white rounded-lg shadow-md p-6 hidden"
+      <div class="flex flex-1">
+        <aside
+          class="w-64 bg-white shadow-md p-4 flex flex-col justify-between overflow-y-auto hide-scrollbar"
         >
-          <h2 class="text-xl font-semibold text-gray-800 mb-6">
-            Create New Contact
-          </h2>
-          <form id="createContactForm" class="space-y-4">
-            <div>
-              <label
-                for="fullName"
-                class="block text-sm font-medium text-gray-700 mb-1"
-                >Full Name</label
+          <div>
+            <a
+              href="/new"
+              class="w-full bg-green-400 text-white py-4 px-4 rounded-lg flex items-center justify-center space-x-2 hover:bg-green-500 transition-colors duration-200 mb-6 shadow-md"
+            >
+              <i class="fas fa-plus"></i>
+              <span>Create Contact</span>
+            </a>
+
+            <nav class="space-y-2">
+              <div
+                class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 cursor-pointer"
               >
-              <input
-                type="text"
-                id="fullName"
-                name="fullName"
-                class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter full name"
-                required
-              />
+                <span
+                  class="flex items-center space-x-2 text-gray-700 font-medium"
+                >
+                  <i class="fas fa-user text-blue-500"></i>
+                  <span>Contact</span>
+                </span>
+                <span class="text-gray-500 text-sm">3</span>
+              </div>
+
+              <div
+                class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 cursor-pointer"
+              >
+                <span
+                  class="flex items-center space-x-2 text-gray-700 font-medium"
+                >
+                  <i class="fas fa-trash-alt text-red-500"></i>
+                  <span>Trash</span>
+                </span>
+                <span class="text-gray-500 text-sm"></span>
+              </div>
+
+              <div
+                class="flex items-center justify-between p-2 rounded-lg text-gray-700 font-medium"
+              >
+                <span class="flex items-center space-x-2">
+                  <span>Label</span>
+                </span>
+                <i class="fas fa-plus text-gray-500"></i>
+              </div>
+              <div class="border-t border-gray-200 my-4"></div>
+              <div
+                class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 cursor-pointer"
+              >
+                <span class="flex items-center space-x-2 text-gray-700">
+                  <i class="fas fa-tag text-purple-500"></i>
+                  <span>Personal</span>
+                </span>
+              </div>
+              <div
+                class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 cursor-pointer"
+              >
+                <span class="flex items-center space-x-2 text-gray-700">
+                  <i class="fas fa-tag text-orange-500"></i>
+                  <span>Unknown</span>
+                </span>
+              </div>
+              <div
+                class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 cursor-pointer"
+              >
+                <span class="flex items-center space-x-2 text-gray-700">
+                  <i class="fas fa-tag text-green-500"></i>
+                  <span>Work</span>
+                </span>
+              </div>
+            </nav>
+          </div>
+
+          <div class="text-center text-gray-500 text-xs mt-8">
+            2025 copyright . salasa.co.id
+          </div>
+        </aside>
+
+        <!-- Main Content Area (Contact List or Create Contact Form) -->
+        <main id="contentArea" class="flex-1 p-6 bg-gray-50 flex flex-col">
+          <!-- Added flex flex-col here -->
+          <!-- Contact List View (Default) -->
+          <div
+            id="contactListView"
+            class="sticky top-0 bg-white rounded-lg shadow-md p-6 flex flex-col flex-1"
+          >
+            <!-- Added flex flex-col flex-1 here -->
+            <h2
+              class="sticky top-0 bg-white text-xl font-semibold text-gray-800 mb-4"
+            >
+              Contacts (5)
+            </h2>
+
+            <!-- Table Header - Made sticky -->
+            <ul
+              class="grid grid-cols-contact-table gap-4 py-2 px-4 border-b border-gray-200 text-gray-600 font-medium text-sm"
+            >
+              <li>Name</li>
+              <li>Email</li>
+              <li>Phone Number</li>
+              <li>Job title & company</li>
+              <li class="text-center">Actions</li>
+              <!-- Column for action icons -->
+            </ul>
+
+            <!-- Scrollable Content Area for Contact Items -->
+            <div id="contacts-list" class="flex-1 overflow-y-auto mt-2">
+              <!-- Added flex-1 and overflow-y-auto here -->
+              <div class="my-4">
+                <h3 class="text-lg font-medium text-gray-700 mb-2">
+                  Favorites (1)
+                </h3>
+                <div
+                  class="grid grid-cols-contact-table gap-4 py-3 px-4 hover:bg-gray-50 rounded-lg items-center"
+                >
+                  <div class="flex items-center space-x-3">
+                    <i class="fas fa-user-circle text-gray-400 text-2xl"></i>
+                    <span class="font-medium text-gray-800">Jachie Chan</span>
+                  </div>
+                  <div class="text-gray-600">jackie@chan.com</div>
+                  <div class="text-gray-600">+0 9876 543 21</div>
+                  <div class="text-gray-600">Full Stack, PT. ...</div>
+                  <div class="flex justify-end space-x-2 text-gray-500">
+                    <i
+                      class="fas fa-star text-yellow-500 cursor-pointer hover:text-yellow-600"
+                    ></i>
+                    <i
+                      class="fas fa-ellipsis-v cursor-pointer hover:text-gray-700"
+                    ></i>
+                  </div>
+                </div>
+              </div>
+              <!-- Contacts Section -->
             </div>
-            <div>
-              <label
-                for="email"
-                class="block text-sm font-medium text-gray-700 mb-1"
-                >Email</label
-              >
-              <input
-                type="email"
-                id="email"
-                name="email"
-                class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter email address"
-              />
-            </div>
-            <div>
-              <label
-                for="phoneNumber"
-                class="block text-sm font-medium text-gray-700 mb-1"
-                >Phone Number</label
-              >
-              <input
-                type="tel"
-                id="phoneNumber"
-                name="phoneNumber"
-                class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter phone number"
-              />
-            </div>
-            <div>
-              <label
-                for="jobTitle"
-                class="block text-sm font-medium text-gray-700 mb-1"
-                >Job Title</label
-              >
-              <input
-                type="text"
-                id="jobTitle"
-                name="jobTitle"
-                class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter job title"
-              />
-            </div>
-            <div>
-              <label
-                for="company"
-                class="block text-sm font-medium text-gray-700 mb-1"
-                >Company</label
-              >
-              <input
-                type="text"
-                id="company"
-                name="company"
-                class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter company name"
-              />
-            </div>
-            <div>
-              <label
-                for="address"
-                class="block text-sm font-medium text-gray-700 mb-1"
-                >Address</label
-              >
-              <textarea
-                id="address"
-                name="address"
-                rows="3"
-                class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter address"
-              ></textarea>
-            </div>
-            <div class="flex justify-end space-x-3 mt-6">
-              <button
-                type="button"
-                id="cancelCreateBtn"
-                class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors duration-200"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200"
-              >
-                Save Contact
-              </button>
-            </div>
-          </form>
-        </div>
-      </main>
+          </div>
+
+          <!-- Create Contact View (Initially Hidden) -->
+          <div
+            id="createContactView"
+            class="bg-white rounded-lg shadow-md p-6 hidden"
+          >
+            <h2 class="text-xl font-semibold text-gray-800 mb-6">
+              Create New Contact
+            </h2>
+            <form id="createContactForm" class="space-y-4">
+              <div>
+                <label
+                  for="fullName"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Full Name</label
+                >
+                <input
+                  type="text"
+                  id="fullName"
+                  name="fullName"
+                  class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Enter full name"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  for="email"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Email</label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Enter email address"
+                />
+              </div>
+              <div>
+                <label
+                  for="phoneNumber"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Phone Number</label
+                >
+                <input
+                  type="tel"
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Enter phone number"
+                />
+              </div>
+              <div>
+                <label
+                  for="jobTitle"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Job Title</label
+                >
+                <input
+                  type="text"
+                  id="jobTitle"
+                  name="jobTitle"
+                  class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Enter job title"
+                />
+              </div>
+              <div>
+                <label
+                  for="company"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Company</label
+                >
+                <input
+                  type="text"
+                  id="company"
+                  name="company"
+                  class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Enter company name"
+                />
+              </div>
+              <div>
+                <label
+                  for="address"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Address</label
+                >
+                <textarea
+                  id="address"
+                  name="address"
+                  rows="3"
+                  class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Enter address"
+                ></textarea>
+              </div>
+              <div class="flex justify-end space-x-3 mt-6">
+                <button
+                  type="button"
+                  id="cancelCreateBtn"
+                  class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors duration-200"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200"
+                >
+                  Save Contact
+                </button>
+              </div>
+            </form>
+          </div>
+        </main>
+      </div>
     </div>
 
     <script src="/storage.js"></script>
     <script src="/assets/script.js"></script>
     <script src="/index.js"></script>
+    <script src="/fetch.js"></script>
   </body>
 </html>
