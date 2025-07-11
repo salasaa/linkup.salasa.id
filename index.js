@@ -57,24 +57,25 @@ let dataContacts = [
   },
 ];
 
-// -----------------------------
-function loadContacts() {
-  dataContacts = loadContactsFromLocalStorage();
-  if (dataContacts.length === 0) {
-    console.log("No contacts found.");
-    return;
-  }
-}
+// GET REFERENCES TO DOM ELEMENTS
+const contactListElement = document.getElementById("contacts-list");
+
+// LOAD CONTACTS FROM LOCAL STORAGE
+// function loadDataContacts() {
+//   dataContacts = loadContacts();
+//   if (dataContacts.length === 0) {
+//     console.log("No contacts found.");
+//     return;
+//   }
+// }
 
 function renderContacts(contacts) {
-  // const contactListElement = document.getElementById("contacts-list");
-  loadContacts();
+  contactListElement.innerHTML = "";
 
   if (!dataContacts || dataContacts.length === 0) {
     console.log("No contacts available to display.");
     return;
   }
-
   dataContacts.forEach((contact) => {
     const fullName = `${contact.firstName} ${contact.lastName}`.trim();
     const createdAt = new Intl.DateTimeFormat("en-UK", {
@@ -82,29 +83,22 @@ function renderContacts(contacts) {
       timeStyle: "short",
       timeZone: "Asia/Jakarta",
     }).format(new Date(contact.createdAt));
-
-    console.log(`
-      ID        : ${contact.id || "N/A"}
-      Full Name : ${fullName || "N/A"}
-      Phone     : ${contact.phoneNumber || "N/A"}
-      Email     : ${contact.email || "N/A"}
-      Website   : ${contact.websiteUrl || "N/A"}
-      Company   : ${contact.company.name || "N/A"} (${
-      contact.company.jobTitle || "N/A"
-    })
-      Created At: ${createdAt || "N/A"}
-      Favorited: ${contact.isFavorited ? "Yes" : "No"}
-    `);
+    const contactLiElement = document.createElement("li");
+    contactLiElement.innerHTML = `
+    <div class="grid grid-cols-contact-table gap-4 py-3 px-4 hover:bg-gray-50 rounded-lg items-center">
+      <p>${fullName}</p>
+      <p>${contact.email}</p>
+      <p>${contact.phoneNumber}</p>
+      <p>${contact.company.jobTitle} (${contact.company.name})</p>
+      <p>${contact.isFavorited ? "Yes" : "No"}</p>
+    </div>
+    `;
+    // console.log(contactListElement);
+    contactListElement.appendChild(contactLiElement);
   });
 }
 
-// -----------------------------
-// SAVE CONTACTS TO LOCAL STORAGE
-// localStorage.setItem("storage-contacts", JSON.stringify(dataContacts));
-
-// -----------------------------
-
-// SEARCH CONTACTS
+// SEARCH CONTACTS AND RENDER
 function searchContacts(contacts, searchTerm) {
   const searchedContact = contacts.filter((contact) => {
     const fullName = `${contact.firstName} ${contact.lastName}`;
@@ -135,8 +129,6 @@ function searchContacts(contacts, searchTerm) {
   }
 }
 
-// -----------------------------
-
 // GENERATE ID
 function generateId(contacts) {
   if (contacts.length === 0) {
@@ -144,7 +136,6 @@ function generateId(contacts) {
   }
   return contacts[contacts.length - 1].id + 1 || 0;
 }
-// -----------------------------
 
 // ADD NEW CONTACT / CREATE CONTACT
 function addNewContact(contacts, newContactInput) {
@@ -164,20 +155,20 @@ function addNewContact(contacts, newContactInput) {
   };
   const newContacts = [...contacts, newContact];
 
-  saveContactsToLocalStorage(newContacts);
+  saveContacts(newContacts);
 
   renderContacts();
 }
 
 // -----------------------------
 
-// DELETE CONTACT
+// DELETE CONTACT, SAVE, RENDER
 function deleteContact(contacts, contactId) {
   const filteredContacts = contacts.filter(
     (contact) => contact.id !== contactId
   );
 
-  saveContactsToLocalStorage(filteredContacts);
+  saveContacts(filteredContacts);
   renderContacts(filteredContacts);
 
   console.log(`Contact with ID ${contactId} has been deleted.`);
@@ -185,7 +176,7 @@ function deleteContact(contacts, contactId) {
 
 // -----------------------------
 
-// UPDATE CONTACT
+// UPDATE CONTACT, SAVE TO LOCAL STORAGE
 function updateContact(contacts, contactId, updatedContactInput) {
   const originalContact = contacts.find((contact) => contact.id === contactId);
 
@@ -216,14 +207,11 @@ function updateContact(contacts, contactId, updatedContactInput) {
     return contact;
   });
 
-  saveContactsToLocalStorage(updatedContacts);
+  saveContacts(updatedContacts);
   renderContacts();
 }
 
-// ------------------------------
-
 searchContacts(dataContacts, "id");
-renderContacts();
 
 // updateContact(dataContacts, 6, {
 //   lastName: "Cena",
@@ -234,18 +222,19 @@ renderContacts();
 //   },
 // });
 
-// addNewContact(dataContacts, {
-//   firstName: "John",
-//   lastName: "Wick",
-//   company: {
-//     name: "New Company",
-//     jobTitle: "New Job Title",
-//   },
-//   email: "john.wick@example.com",
-//   phoneNumber: "+62 123-456-7890",
-//   websiteUrl: "https://johnwick.com",
-//   isFavorited: true,
-//   createdAt: new Date(),
-// });
+addNewContact(dataContacts, {
+  firstName: "John",
+  lastName: "Wick",
+  company: {
+    name: "New Company",
+    jobTitle: "New Job Title",
+  },
+  email: "john.wick@example.com",
+  phoneNumber: "+62 123-456-7890",
+  websiteUrl: "https://johnwick.com",
+  isFavorited: true,
+  createdAt: new Date(),
+});
 
+// renderContacts(dataContacts);
 // ------------------------------

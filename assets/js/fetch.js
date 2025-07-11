@@ -8,8 +8,8 @@ async function getContacts() {
       }
     );
     // condition testing
-    const users = await response.json();
-    console.log(users);
+    const posts = await response.json();
+    console.log(posts);
   } catch (error) {
     console.error("Error fetching contacts:", error);
   }
