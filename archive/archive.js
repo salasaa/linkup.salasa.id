@@ -166,9 +166,7 @@ function addNewContact(contacts, newContactInput) {
 
 // DELETE CONTACT, SAVE, RENDER
 function deleteContact(contacts, contactId) {
-  const filteredContacts = contacts.filter(
-    (contact) => contact.id !== contactId
-  );
+  const filteredContacts = contacts.filter((contact) => contact.id !== contactId);
 
   saveContacts(filteredContacts);
   renderContacts(filteredContacts);
@@ -188,17 +186,13 @@ function updateContact(contacts, contactId, updatedContactInput) {
     lastName: updatedContactInput.lastName || originalContact.lastName,
     company: {
       name: updatedContactInput.company?.name || originalContact.company.name,
-      jobTitle:
-        updatedContactInput.company?.jobTitle ||
-        originalContact.company.jobTitle,
+      jobTitle: updatedContactInput.company?.jobTitle || originalContact.company.jobTitle,
     },
     email: updatedContactInput.email || originalContact.email,
     phoneNumber: updatedContactInput.phoneNumber || originalContact.phoneNumber,
     websiteUrl: updatedContactInput.websiteUrl || originalContact.websiteUrl,
     isFavorited:
-      updatedContactInput.isFavorited !== undefined
-        ? updatedContactInput.isFavorited
-        : originalContact.isFavorited,
+      updatedContactInput.isFavorited !== undefined ? updatedContactInput.isFavorited : originalContact.isFavorited,
     createdAt: originalContact.createdAt,
   };
 
@@ -283,7 +277,7 @@ createContactForm.addEventListener("submit", (event) => {
   alert("Contact saved successfully!");
 });
 
-// // Get references to DOM elements
+// Get references to DOM elements
 const createContactForm = document.getElementById("createContactForm");
 
 // Event listener for "Create Contact" form submission
