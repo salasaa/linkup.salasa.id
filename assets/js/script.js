@@ -3,6 +3,8 @@ const createFormElement = document.getElementById("createContactForm");
 
 // Event listener for "Create Contact" form submission
 createFormElement.addEventListener("submit", async (event) => {
+  const contacts = loadContacts();
+
   event.preventDefault();
 
   const formData = new FormData(createFormElement);
@@ -23,9 +25,8 @@ createFormElement.addEventListener("submit", async (event) => {
   };
 
   console.log({ newContact });
-
-  // TODO: Add contact to localStorage
+  saveContacts([...contacts, newContact]);
 
   alert("Contact saved successfully!");
-  // window.location.href = "/";
+  window.location.href = "/";
 });
