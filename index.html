@@ -127,7 +127,7 @@
 
       <div class="flex flex-1">
         <aside
-          class="w-64 bg-white shadow-md p-4 flex flex-col justify-between overflow-y-auto hide-scrollbar"
+          class="w-64 bg-white shadow-md p-4 flex flex-col justify-between"
         >
           <div>
             <a
@@ -216,12 +216,12 @@
             <h2
               class="sticky top-0 bg-white text-xl font-semibold text-gray-800 mb-4"
             >
-              Contacts (5)
+              Contacts (7)
             </h2>
 
             <!-- Table Header - Made sticky -->
             <ul
-              class="grid grid-cols-contact-table gap-4 py-2 px-4 border-b border-gray-200 text-gray-600 font-medium text-sm"
+              class="grid grid-cols-contact-table border-b border-gray-200 text-gray-600 font-medium text-sm flex-1"
             >
               <li>Name</li>
               <li>Email</li>
@@ -232,41 +232,17 @@
             </ul>
 
             <!-- Scrollable Content Area for Contact Items -->
-            <!-- <div class="flex-1 overflow-y-auto">
-              <div class="my-4">
-                <h3 class="text-lg font-medium text-gray-700 mb-2">
-                  Favorites (5)
-                </h3>
-                <div
-                  class="grid grid-cols-contact-table gap-4 py-3 px-4 hover:bg-gray-50 rounded-lg items-center"
-                >
-                  <div class="flex items-center space-x-3">
-                    <i class="fas fa-user-circle text-gray-400 text-2xl"></i>
-                    <span class="font-medium text-gray-800">Jachie Chan</span>
-                  </div>
-                  <div class="text-gray-600">jackie@chan.com</div>
-                  <div class="text-gray-600">+0 9876 543 21</div>
-                  <div class="text-gray-600">Full Stack, PT. ...</div>
-                  <div class="flex justify-end space-x-2 text-gray-500">
-                    <i
-                      class="fas fa-star text-yellow-500 cursor-pointer hover:text-yellow-600"
-                    ></i>
-                    <i
-                      class="fas fa-ellipsis-v cursor-pointer hover:text-gray-700"
-                    ></i>
-                  </div>
-                </div>
-              </div>
-              
-            </div> -->
 
             <!-- List View -->
-            <div class="flex-1 overflow-y-auto">
+            <div class="flex-1 overflow-auto">
               <div class="my-4">
+                <h3 class="text-lg font-medium text-gray-700 mb-2">
+                  kontak (7)
+                </h3>
                 <ul>
                   <li
                     id="contacts-list"
-                    class="grid-cols-contact-table gap-4 py-2 font-medium text-sm text-gray-400"
+                    class="grid-cols-contact-table gap-4 font-medium text-sm text-gray-400 space-y-4"
                   ></li>
                 </ul>
               </div>
@@ -278,7 +254,7 @@
 
     <!-- <script src="/assets/js/fetch.js"></script> -->
     <script src="/assets/js/storage.js"></script>
-    <!-- <script src="/assets/js/script.js"></script> -->
+    <script src="/assets/js/script.js"></script>
     <script src="/index.js"></script>
   </body>
 </html>

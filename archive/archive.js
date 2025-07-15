@@ -57,65 +57,47 @@ let dataContacts = [
   },
 ];
 
-// LOAD CONTACTS FROM LOCAL STORAGE
-function loadDataContacts() {
-  dataContacts = loadContacts();
-  if (dataContacts.length === 0) {
-    console.log("No contacts found.");
-    return;
-  }
-}
-
 // GET REFERENCES TO DOM ELEMENTS
 const contactListElement = document.getElementById("contacts-list");
 
+// LOAD CONTACTS FROM LOCAL STORAGE
+// function loadDataContacts() {
+//   dataContacts = loadContacts();
+//   if (dataContacts.length === 0) {
+//     console.log("No contacts found.");
+//     return;
+//   }
+// }
+
 function renderContacts(contacts) {
-  loadDataContacts();
+  contactListElement.innerHTML = "";
 
   if (!dataContacts || dataContacts.length === 0) {
     console.log("No contacts available to display.");
     return;
   }
-
-  // Clear previous list
-  contactListElement.innerHTML = "";
-
-  // Use map and join to build the HTML string
-  const contactsHTMLString = dataContacts
-    .map((contact) => {
+  contactsLiElements = contacts.map((contact) => {
+    dataContacts.forEach((contact) => {
       const fullName = `${contact.firstName} ${contact.lastName}`.trim();
       const createdAt = new Intl.DateTimeFormat("en-UK", {
         dateStyle: "medium",
         timeStyle: "short",
         timeZone: "Asia/Jakarta",
       }).format(new Date(contact.createdAt));
-
-      return `
-        <li>
-          <div class="grid grid-cols-contact-table gap-3 py-3 px-4 hover:bg-gray-50 rounded-lg items-center">
-            <p>${fullName}</p>
-            <p>${contact.email}</p>
-            <p>${contact.phoneNumber}</p>
-            <p>${contact.company.jobTitle} (${contact.company.name})</p>
-            <div class="flex display-flex gap-3">
-              <p>${contact.isFavorited ? "Yes" : "No"}</p>
-              <button class="flex items-center justify-between p-3 rounded-3xl hover:bg-gray-100 cursor-pointer"> 
-                <i class="far fa-star cursor-pointer hover:text-yellow-500"></i>
-              </button>
-              <a class="flex items-center justify-between p-3 rounded-3xl hover:bg-gray-100 cursor-pointer"> 
-                <i class='fa fa-eye'></i>
-              </a>
-              <button class="flex items-center justify-between p-3 rounded-3xl hover:bg-gray-100 cursor-pointer"> 
-                <i class='fa fa-trash-can'></i>
-              </button>
-            </div>
-          </div>
-        </li>
-      `;
-    })
-    .join("");
-
-  contactListElement.innerHTML = contactsHTMLString;
+      const contactLiElement = document.createElement("li");
+      contactLiElement.innerHTML = `
+    <div class="grid grid-cols-contact-table gap-4 py-3 px-4 hover:bg-gray-50 rounded-lg items-center">
+      <p>${fullName}</p>
+      <p>${contact.email}</p>
+      <p>${contact.phoneNumber}</p>
+      <p>${contact.company.jobTitle} (${contact.company.name})</p>
+      <p>${contact.isFavorited ? "Yes" : "No"}</p>
+    </div>
+    `;
+      console.log(contactListElement);
+      // contactListElement.appendChild(contactLiElement);
+    });
+  });
 }
 
 // SEARCH CONTACTS AND RENDER
@@ -242,19 +224,105 @@ searchContacts(dataContacts, "id");
 //   },
 // });
 
-// addNewContact(dataContacts, {
-//   firstName: "Dennis",
-//   lastName: "Rodman",
-//   company: {
-//     name: "NBA",
-//     jobTitle: "Basketball Player",
-//   },
-//   email: "rodman@example.com",
-//   phoneNumber: "+62 123-456-7890",
-//   websiteUrl: "https://drod.com",
-//   isFavorited: true,
-//   createdAt: new Date(),
-// });
+addNewContact(dataContacts, {
+  firstName: "John",
+  lastName: "Wick",
+  company: {
+    name: "New Company",
+    jobTitle: "New Job Title",
+  },
+  email: "john.wick@example.com",
+  phoneNumber: "+62 123-456-7890",
+  websiteUrl: "https://johnwick.com",
+  isFavorited: true,
+  createdAt: new Date(),
+});
 
 // renderContacts(dataContacts);
 // ------------------------------
+
+// From script.js //
+// Get references to DOM elements
+// const createContactBtn = document.getElementById("createContactBtn");
+// const contactListView = document.getElementById("contactListView");
+// const createContactView = document.getElementById("createContactView");
+// const cancelCreateBtn = document.getElementById("cancelCreateBtn");
+// const createContactForm = document.getElementById("createContactForm");
+
+// // Event listener for "Create contact" button
+// createContactBtn.addEventListener("click", () => {
+//   contactListView.classList.add("hidden"); // Hide contact list view
+//   createContactView.classList.remove("hidden"); // Show form view
+// });
+
+// // Event listener for "Cancel" button on "Create Contact" form
+// cancelCreateBtn.addEventListener("click", () => {
+//   createContactView.classList.add("hidden"); // Hide form view
+//   contactListView.classList.remove("hidden"); // Show contact list view again
+//   createContactForm.reset(); // Reset the form
+// });
+
+// Event listener for "Create Contact" form submission
+createContactForm.addEventListener("submit", (event) => {
+  event.preventDefault(); // Prevent page refresh
+  // Here you can add logic to save contact data
+  const formData = new FormData(createContactForm);
+  const newContact = {};
+  for (let [key, value] of formData.entries()) {
+    newContact[key] = value;
+  }
+  console.log("New Contact Data:", newContact);
+
+  // After saving, return to the contact list view
+  createContactView.classList.add("hidden");
+  contactListView.classList.remove("hidden");
+  createContactForm.reset(); // Reset form after submission
+  // Using alert temporarily, replace with custom modal
+  // IMPORTANT: Do NOT use alert() or confirm() in production code for Canvas.
+  // Use a custom modal UI instead.
+  alert("Contact saved successfully!");
+});
+
+// // Get references to DOM elements
+const createContactForm = document.getElementById("createContactForm");
+
+// Event listener for "Create Contact" form submission
+createContactForm.addEventListener("submit", (event) => {
+  event.preventDefault(); // prevent page refresh
+
+  const formData = new FormData(createContactForm);
+  const newContact = {};
+  for (let [key, value] of formData.entries()) {
+    newContact[key] = value;
+  }
+  console.log("New Contact Data:", newContact);
+
+  // --- logic for save new contact ---
+  // Saving contact data to localStorage
+  let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+  contacts.push(newContact);
+  localStorage.setItem("contacts", JSON.stringify(contacts));
+  // --- End Logic ---
+
+  // Redirect back to the main page after saving
+  alert("Contact saved successfully!"); // Replace with a better modal UI
+  window.location.href = "/"; // Redirect to the main page
+});
+
+// ----------------------------
+
+// From storage.js //
+function saveContacts(contacts) {
+  localStorage.setItem("storage-contacts", JSON.stringify(contacts));
+}
+
+// LOAD CONTACTS FROM LOCAL STORAGE
+function loadContacts() {
+  const storageContacts = JSON.parse(localStorage.getItem("storage-contacts"));
+
+  if (!storageContacts) {
+    console.log("Local storage is empty. Initializing with an empty array.");
+    return [];
+  }
+  return storageContacts;
+}
