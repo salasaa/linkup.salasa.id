@@ -15,8 +15,8 @@ let dataContacts = [
   },
   {
     id: 2,
-    firstName: "Pramudia",
-    lastName: "Adi",
+    firstName: "Adi",
+    lastName: "Pamungkas",
     company: {
       name: "Business Corp",
       jobTitle: "Marketing Manager",
@@ -105,7 +105,9 @@ function renderContacts(contacts) {
               <a class="flex items-center justify-between p-3 rounded-3xl hover:bg-gray-100 cursor-pointer"> 
                 <i class='fa fa-eye'></i>
               </a>
-              <button class="flex items-center justify-between p-3 rounded-3xl hover:bg-gray-100 cursor-pointer"> 
+              <button class="flex items-center justify-between p-3 rounded-3xl hover:bg-gray-100 cursor-pointer" onclick="deleteContact(${
+                contact.id
+              })"> 
                 <i class='fa fa-trash-can'></i>
               </button>
             </div>
