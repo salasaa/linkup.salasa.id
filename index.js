@@ -1,4 +1,4 @@
-let dataContacts = [
+let placeholderDataContacts = [
   {
     id: 1,
     firstName: "Akhirudin",
@@ -59,29 +59,27 @@ let dataContacts = [
 
 // LOAD CONTACTS FROM LOCAL STORAGE
 function loadDataContacts() {
-  dataContacts = loadContacts();
-  if (dataContacts.length === 0) {
-    console.log("No contacts found.");
-    return;
+  contacts = loadContacts();
+
+  if (contacts.length === 0) {
+    const newContacts = saveContacts(placeholderDataContacts);
+    return newContacts;
   }
+
+  return contacts;
 }
 
 // GET REFERENCES TO DOM ELEMENTS
 const contactListElement = document.getElementById("contacts-list");
 
-function renderContacts(contacts) {
-  loadDataContacts();
-
-  if (!dataContacts || dataContacts.length === 0) {
-    console.log("No contacts available to display.");
-    return;
-  }
+function renderContacts() {
+  const contacts = loadDataContacts();
 
   // Clear previous list
   contactListElement.innerHTML = "";
 
   // Use map and join to build the HTML string
-  const contactsHTMLString = dataContacts
+  const contactsHTMLString = contacts
     .map((contact) => {
       const fullName = `${contact.firstName} ${contact.lastName}`.trim();
       const createdAt = new Intl.DateTimeFormat("en-UK", {
@@ -182,21 +180,15 @@ function addNewContact(contacts, newContactInput) {
   renderContacts();
 }
 
-// -----------------------------
-
 // DELETE CONTACT, SAVE, RENDER
 function deleteContact(contacts, contactId) {
-  const filteredContacts = contacts.filter(
-    (contact) => contact.id !== contactId
-  );
+  const filteredContacts = contacts.filter((contact) => contact.id !== contactId);
 
   saveContacts(filteredContacts);
   renderContacts(filteredContacts);
 
   console.log(`Contact with ID ${contactId} has been deleted.`);
 }
-
-// -----------------------------
 
 // UPDATE CONTACT, SAVE TO LOCAL STORAGE
 function updateContact(contacts, contactId, updatedContactInput) {
@@ -208,17 +200,13 @@ function updateContact(contacts, contactId, updatedContactInput) {
     lastName: updatedContactInput.lastName || originalContact.lastName,
     company: {
       name: updatedContactInput.company?.name || originalContact.company.name,
-      jobTitle:
-        updatedContactInput.company?.jobTitle ||
-        originalContact.company.jobTitle,
+      jobTitle: updatedContactInput.company?.jobTitle || originalContact.company.jobTitle,
     },
     email: updatedContactInput.email || originalContact.email,
     phoneNumber: updatedContactInput.phoneNumber || originalContact.phoneNumber,
     websiteUrl: updatedContactInput.websiteUrl || originalContact.websiteUrl,
     isFavorited:
-      updatedContactInput.isFavorited !== undefined
-        ? updatedContactInput.isFavorited
-        : originalContact.isFavorited,
+      updatedContactInput.isFavorited !== undefined ? updatedContactInput.isFavorited : originalContact.isFavorited,
     createdAt: originalContact.createdAt,
   };
 
@@ -233,30 +221,6 @@ function updateContact(contacts, contactId, updatedContactInput) {
   renderContacts();
 }
 
-searchContacts(dataContacts, "id");
+loadDataContacts();
 
-// updateContact(dataContacts, 6, {
-//   lastName: "Cena",
-//   isFavorited: false,
-//   company: {
-//     name: "WWE",
-//     jobTitle: "Wrestler",
-//   },
-// });
-
-// addNewContact(dataContacts, {
-//   firstName: "Dennis",
-//   lastName: "Rodman",
-//   company: {
-//     name: "NBA",
-//     jobTitle: "Basketball Player",
-//   },
-//   email: "rodman@example.com",
-//   phoneNumber: "+62 123-456-7890",
-//   websiteUrl: "https://drod.com",
-//   isFavorited: true,
-//   createdAt: new Date(),
-// });
-
-// renderContacts(dataContacts);
-// ------------------------------
+renderContacts();

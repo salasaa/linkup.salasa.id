@@ -1,13 +1,13 @@
-// // Get references to DOM elements
+// Get references to DOM elements
 const createFormElement = document.getElementById("createContactForm");
 
 // Event listener for "Create Contact" form submission
 createFormElement.addEventListener("submit", async (event) => {
-  event.preventDefault(); // prevent page refresh
+  const contacts = loadContacts();
+
+  event.preventDefault();
 
   const formData = new FormData(createFormElement);
-  // // Convert FormData to object using Object.fromEntries and map to desired structure
-  // const formDataInput = Object.fromEntries(formData.entries());
 
   // Example: split fullname if needed, or just use as is
   const newContact = {
@@ -25,7 +25,8 @@ createFormElement.addEventListener("submit", async (event) => {
   };
 
   console.log({ newContact });
+  saveContacts([...contacts, newContact]);
 
-  alert("Contact saved successfully!"); // Replace with a better modal UI
-  // window.location.href = "/"; // Redirect to the main page
+  alert("Contact saved successfully!");
+  window.location.href = "/";
 });
