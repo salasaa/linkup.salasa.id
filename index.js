@@ -97,13 +97,13 @@ function renderContacts() {
             <p>${contact.company.jobTitle} (${contact.company.name})</p>
             <div class="flex display-flex gap-3">
               <p>${contact.isFavorited ? "Yes" : "No"}</p>
-              <button class="flex items-center justify-between p-3 rounded-3xl hover:bg-gray-100 cursor-pointer"> 
-                <i class="far fa-star cursor-pointer hover:text-yellow-500"></i>
+              <button class="flex items-center justify-between p-3 rounded-3xl hover:bg-gray-100 "> 
+                <i class="far fa-star  hover:text-yellow-500"></i>
               </button>
-              <a class="flex items-center justify-between p-3 rounded-3xl hover:bg-gray-100 cursor-pointer"> 
+              <a class="flex items-center justify-between p-3 rounded-3xl hover:bg-gray-100 "> 
                 <i class='fa fa-eye'></i>
               </a>
-              <button class="flex items-center justify-between p-3 rounded-3xl hover:bg-gray-100 cursor-pointer" onclick="deleteContact(${
+              <button class="flex items-center justify-between p-3 rounded-3xl hover:bg-gray-100 " onclick="deleteContact(placeholderDataContacts,${
                 contact.id
               })"> 
                 <i class='fa fa-trash-can'></i>
@@ -149,40 +149,11 @@ function searchContacts(contacts, searchTerm) {
   }
 }
 
-// GENERATE ID
-function generateId(contacts) {
-  if (contacts.length === 0) {
-    return 0; // If no contacts, start with ID 0
-  }
-  return contacts[contacts.length - 1].id + 1 || 0;
-}
-
-// ADD NEW CONTACT / CREATE CONTACT
-function addNewContact(contacts, newContactInput) {
-  const newContact = {
-    id: generateId(contacts),
-    firstName: newContactInput.firstName || "N/A",
-    lastName: newContactInput.lastName || "N/A",
-    company: {
-      name: newContactInput.company?.name || "N/A",
-      jobTitle: newContactInput.company?.jobTitle || "N/A",
-    },
-    email: newContactInput.email || "N/A",
-    phoneNumber: newContactInput.phoneNumber || "N/A",
-    websiteUrl: newContactInput.websiteUrl || "N/A",
-    isFavorited: newContactInput.isFavorited || false,
-    createdAt: new Date(newContactInput.createdAt),
-  };
-  const newContacts = [...contacts, newContact];
-
-  saveContacts(newContacts);
-
-  renderContacts();
-}
-
 // DELETE CONTACT, SAVE, RENDER
 function deleteContact(contacts, contactId) {
-  const filteredContacts = contacts.filter((contact) => contact.id !== contactId);
+  const filteredContacts = contacts.filter(
+    (contact) => contact.id !== contactId
+  );
 
   saveContacts(filteredContacts);
   renderContacts(filteredContacts);
@@ -200,13 +171,17 @@ function updateContact(contacts, contactId, updatedContactInput) {
     lastName: updatedContactInput.lastName || originalContact.lastName,
     company: {
       name: updatedContactInput.company?.name || originalContact.company.name,
-      jobTitle: updatedContactInput.company?.jobTitle || originalContact.company.jobTitle,
+      jobTitle:
+        updatedContactInput.company?.jobTitle ||
+        originalContact.company.jobTitle,
     },
     email: updatedContactInput.email || originalContact.email,
     phoneNumber: updatedContactInput.phoneNumber || originalContact.phoneNumber,
     websiteUrl: updatedContactInput.websiteUrl || originalContact.websiteUrl,
     isFavorited:
-      updatedContactInput.isFavorited !== undefined ? updatedContactInput.isFavorited : originalContact.isFavorited,
+      updatedContactInput.isFavorited !== undefined
+        ? updatedContactInput.isFavorited
+        : originalContact.isFavorited,
     createdAt: originalContact.createdAt,
   };
 
