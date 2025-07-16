@@ -15,15 +15,31 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {},
+      };
+    </script>
+    <style>
+      /* Custom grid columns for the contact table */
+      .grid-cols-contact-table {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr; /* Adjusted for actions column */
+      }
+    </style>
   </head>
   <body class="flex flex-col min-h-screen">
     <div class="flex flex-col flex-1 bg-gray-100">
@@ -31,9 +47,7 @@
       <header
         class="site-header w-full bg-white/30 dark:bg-gray-950/50 backdrop-blur-2xl sticky top-0 z-30 transition-all duration-300"
       >
-        <div
-          class="max-w-4xl mx-auto flex items-center justify-between py-4 px-4 gap-4"
-        >
+        <div class="flex justify-between py-4 px-4">
           <a href="/">
             <img alt="linkup" src="/assets/icons/linkup-logo.png" />
           </a>
@@ -111,15 +125,15 @@
 
       <div class="flex flex-1">
         <aside
-          class="w-64 bg-white shadow-md p-4 flex flex-col justify-between overflow-y-auto hide-scrollbar"
+          class="w-64 bg-white shadow-md p-4 flex flex-col justify-between"
         >
           <div>
             <a
-              href="/"
+              href="/new"
               class="w-full bg-green-400 text-white py-4 px-4 rounded-lg flex items-center justify-center space-x-2 hover:bg-green-500 transition-colors duration-200 mb-6 shadow-md"
             >
-              <i class="fas fa-user"></i>
-              <span>View Contacts</span>
+              <i class="fas fa-plus"></i>
+              <span>Create Contact</span>
             </a>
 
             <nav class="space-y-2">
@@ -188,135 +202,39 @@
           </div>
         </aside>
 
-        <main id="contentArea" class="flex-1 p-6 bg-gray-50 flex flex-col">
+        <!-- Main Content Area (Contact List or Create Contact Form) -->
+        <main id="" class="flex-1 p-6 bg-gray-50 flex flex-col overflow-y-auto">
           <div
-            id="createContactView"
-            class="bg-white rounded-lg shadow-md p-6 flex-1"
+            id=""
+            class="sticky top-0 bg-white rounded-lg shadow-md p-6 flex flex-col flex-1"
           >
-            <h2 class="text-xl font-semibold text-gray-800 mb-6">
-              Create New Contact
+            <!-- Added flex flex-col flex-1 here -->
+            <h2
+              class="bg-white text-xl font-semibold text-gray-800 mb-4 border-b border-gray-200"
+            >
+              Contact details
             </h2>
-            <form method="post" id="create-form" class="space-y-4">
-              <div>
-                <label
-                  for="firstName"
-                  class="block text-sm font-medium text-gray-700 mb-1"
-                  >First Name</label
-                >
-                <input
-                  type="text"
-                  id="firstName"
-                  name="firstName"
-                  class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Enter first name"
-                  required
-                />
-              </div>
-              <div>
-                <label
-                  for="lastName"
-                  class="block text-sm font-medium text-gray-700 mb-1"
-                  >Last Name</label
-                >
-                <input
-                  type="text"
-                  id="lastName"
-                  name="lastName"
-                  class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Enter last name"
-                  required
-                />
-              </div>
-              <div>
-                <label
-                  for="email"
-                  class="block text-sm font-medium text-gray-700 mb-1"
-                  >Email</label
-                >
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Enter email address"
-                />
-              </div>
-              <div>
-                <label
-                  for="phoneNumber"
-                  class="block text-sm font-medium text-gray-700 mb-1"
-                  >Phone Number</label
-                >
-                <input
-                  type="tel"
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Enter phone number"
-                />
-              </div>
-              <div>
-                <label
-                  for="jobTitle"
-                  class="block text-sm font-medium text-gray-700 mb-1"
-                  >Job Title</label
-                >
-                <input
-                  type="text"
-                  id="jobTitle"
-                  name="jobTitle"
-                  class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Enter job title"
-                />
-              </div>
-              <div>
-                <label
-                  for="companyName"
-                  class="block text-sm font-medium text-gray-700 mb-1"
-                  >Company</label
-                >
-                <input
-                  type="text"
-                  id="companyName"
-                  name="companyName"
-                  class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Enter company name"
-                />
-              </div>
-              <div>
-                <label
-                  for="websiteUrl"
-                  class="block text-sm font-medium text-gray-700 mb-1"
-                  >website Url</label
-                >
-                <textarea
-                  id="websiteUrl"
-                  name="websiteUrl"
-                  class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Enter website Url"
-                ></textarea>
-              </div>
-              <div class="flex justify-end space-x-3 mt-6">
-                <a
-                  href="index.html"
-                  class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors duration-200 flex items-center justify-center"
-                >
-                  Cancel
-                </a>
-                <button
-                  type="submit"
-                  class="px-4 py-2 bg-green-400 text-white rounded-md hover:bg-green-500 transition-colors duration-200"
-                >
-                  Save Contact
-                </button>
-              </div>
-            </form>
+            <div class="flex space-between gap-4">
+              <ul class="grid text-gray-400 font-medium text-md">
+                <li>Name</li>
+                <li>Email</li>
+                <li>Phone Number</li>
+                <li>Job title</li>
+                <li>Company</li>
+                <!-- Column for action icons -->
+              </ul>
+              <ul
+                class="grid text-gray-500 block font-medium text-md space-y-4"
+                id="contact-container"
+              ></ul>
+              <!-- List View -->
+            </div>
           </div>
         </main>
       </div>
     </div>
 
     <script src="/assets/js/storage.js"></script>
-    <script src="/new/index.js"></script>
+    <script src="/contact/index.js"></script>
   </body>
 </html>

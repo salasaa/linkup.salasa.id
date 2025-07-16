@@ -1,14 +1,24 @@
+// SAVE CONTACTS FROM LOCAL STORAGE
 function saveContacts(contacts) {
   localStorage.setItem("storage-contacts", JSON.stringify(contacts));
 }
 
 // LOAD CONTACTS FROM LOCAL STORAGE
 function loadContacts() {
-  const storageContacts = JSON.parse(localStorage.getItem("storage-contacts"));
-
+  const storageContacts = localStorage.getItem("storage-contacts");
   if (!storageContacts) {
-    console.log("Local storage is empty. Initializing with an empty array.");
-    return [];
+    saveContacts([]);
   }
-  return storageContacts;
+  try {
+    return JSON.parse(storageContacts);
+  } catch (error) {
+    console.log("Failed to load contacts", error);
+  }
+}
+
+function loadContactById(id) {
+  const contacts = loadContacts();
+  const contact = contacts.find((contact) => contact.id === id);
+
+  return contact;
 }

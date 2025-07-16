@@ -4,7 +4,7 @@ let placeholderDataContacts = [
     firstName: "Akhirudin",
     lastName: "Salasa",
     company: {
-      name: "PT. Tech Solutions",
+      name: "PT. Tech ",
       jobTitle: "Software Engineering",
     },
     email: "salasa@example.com",
@@ -70,16 +70,33 @@ function loadDataContacts() {
 }
 
 // GET REFERENCES TO DOM ELEMENTS
-const contactListElement = document.getElementById("contacts-list");
+const contactsListElement = document.getElementById("contacts-list");
+const searchInputElement = document.getElementById("search-input");
+const createFormElement = document.getElementById("create-form");
+
+// SEARCH CONTACTS AND RENDER
+function searchContacts(contacts, searchQuery) {
+  searchInputElement.value = searchQuery;
+
+  const filteredContacts = contacts.filter((contact) =>
+    contact.firstName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  return filteredContacts;
+}
 
 function renderContacts() {
   const contacts = loadDataContacts();
 
-  // Clear previous list
-  contactListElement.innerHTML = "";
+  const urlParams = new URLSearchParams(window.location.search);
+  const searchQuery = urlParams.get("q");
+
+  const contactToDisplay = searchQuery
+    ? searchContacts(contacts, searchQuery)
+    : contacts;
 
   // Use map and join to build the HTML string
-  const contactsHTMLString = contacts
+  const contactsHTMLString = contactToDisplay
     .map((contact) => {
       const fullName = `${contact.firstName} ${contact.lastName}`.trim();
       const createdAt = new Intl.DateTimeFormat("en-UK", {
@@ -95,17 +112,15 @@ function renderContacts() {
             <p>${contact.email}</p>
             <p>${contact.phoneNumber}</p>
             <p>${contact.company.jobTitle} (${contact.company.name})</p>
-            <div class="flex display-flex gap-3">
-              <p>${contact.isFavorited ? "Yes" : "No"}</p>
+            <div class="flex display-end gap-3">
+              
               <button class="flex items-center justify-between p-3 rounded-3xl hover:bg-gray-100 "> 
                 <i class="far fa-star  hover:text-yellow-500"></i>
               </button>
-              <a class="flex items-center justify-between p-3 rounded-3xl hover:bg-gray-100 "> 
+              <a href="/contact/?id=${contact.id}" class="flex items-center justify-between p-3 rounded-3xl hover:bg-gray-100 "> 
                 <i class='fa fa-eye'></i>
               </a>
-              <button class="flex items-center justify-between p-3 rounded-3xl hover:bg-gray-100 " onclick="deleteContact(placeholderDataContacts,${
-                contact.id
-              })"> 
+              <button class="flex items-center justify-between p-3 rounded-3xl hover:bg-gray-100 " onclick="deleteContact(contacts,${contact.id})"> 
                 <i class='fa fa-trash-can'></i>
               </button>
             </div>
@@ -115,41 +130,58 @@ function renderContacts() {
     })
     .join("");
 
-  contactListElement.innerHTML = contactsHTMLString;
+  contactsListElement.innerHTML = contactsHTMLString;
 }
 
-// SEARCH CONTACTS AND RENDER
-function searchContacts(contacts, searchTerm) {
-  const searchedContact = contacts.filter((contact) => {
-    const fullName = `${contact.firstName} ${contact.lastName}`;
-
-    return (
-      fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      contact.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      contact.phoneNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      contact.company.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      contact.company.jobTitle.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+function renderOneContact(contacts, contactId) {
+  const contact = contacts.find((fruit) => {
+    return contact.id === contactId;
   });
-  renderContacts(searchedContact);
 
-  if (searchedContact.length === 0) {
-    console.log(`No contacts found : "${searchTerm}"`);
-  } else {
-    console.log(`Found ${searchedContact.length} contact(s) : "${searchTerm}"`);
-    searchedContact.forEach((contact) => {
-      const fullName = `${contact.firstName} ${contact.lastName}`.trim();
-      console.log(`
-        ${fullName}, 
-        ${contact.email}, 
-        ${contact.phoneNumber}, 
-        ${contact.company.name} (${contact.company.jobTitle}),
-      `);
-    });
+  if (!contact) {
+    console.log("No Contact Found");
+    return;
   }
+
+  renderContacts([contact]);
 }
+
+// function searchContacts(contacts, searchQuery) {
+//   searchInputElement.value = searchQuery;
+
+//   const searchedContact = contacts.filter((contact) => {
+//     const fullName = `${contact.firstName} ${contact.lastName}`;
+
+//     return (
+//       fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+//       contact.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+//       contact.phoneNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
+//       contact.company.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+//       contact.company.jobTitle.toLowerCase().includes(searchQuery.toLowerCase())
+//     );
+//   });
+//   renderContacts(searchedContact);
+
+//   if (searchedContact.length === 0) {
+//     console.log(`No contacts found : "${searchQuery}"`);
+//   } else {
+//     console.log(
+//       `Found ${searchedContact.length} contact(s) : "${searchQuery}"`
+//     );
+//     searchedContact.forEach((contact) => {
+//       const fullName = `${contact.firstName} ${contact.lastName}`.trim();
+//       console.log(`
+//         ${fullName},
+//         ${contact.email},
+//         ${contact.phoneNumber},
+//         ${contact.company.name} (${contact.company.jobTitle}),
+//       `);
+//     });
+//   }
+// }
 
 // DELETE CONTACT, SAVE, RENDER
+
 function deleteContact(contacts, contactId) {
   const filteredContacts = contacts.filter(
     (contact) => contact.id !== contactId

@@ -1,5 +1,5 @@
 // Get references to DOM elements
-const createFormElement = document.getElementById("createContactForm");
+const createFormElement = document.getElementById("create-form");
 
 // Event listener for "Create Contact" form submission
 createFormElement.addEventListener("submit", async (event) => {
