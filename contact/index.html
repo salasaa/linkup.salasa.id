@@ -47,21 +47,32 @@
       <header
         class="site-header w-full bg-white/30 dark:bg-gray-950/50 backdrop-blur-2xl sticky top-0 z-30 transition-all duration-300"
       >
-        <div class="flex justify-between py-4 px-4">
-          <a href="/">
+        <div class="flex justify-between py-4 px-4 m-0">
+          <a href="/" class="w-32">
             <img alt="linkup" src="/assets/icons/linkup-logo.png" />
           </a>
           <!-- Search Bar -->
           <div
             class="relative flex items-center w-full max-w-lg md:max-w-md lg:max-w-lg"
           >
-            <i class="fas fa-search absolute left-3 text-gray-400"></i>
-            <input
-              type="text"
-              placeholder="Searching"
-              class="pl-10 pr-4 py-2 rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
-            />
+            <form
+              id=""
+              method="get"
+              class="relative flex items-center w-full max-w-lg md:max-w-md lg:max-w-lg"
+            >
+              <i class="fas fa-search absolute left-3 text-gray-400"></i>
+              <input
+                id="search-input"
+                name="q"
+                type="text"
+                placeholder="Search..."
+                class="pl-10 pr-4 py-2 rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+              />
+              <!-- <button type="submit">Search</button> -->
+            </form>
+            <!-- <i class="fas fa-search absolute left-3 text-gray-400"></i> -->
           </div>
+
           <!-- Search & Dark Mode Toggle -->
           <div class="flex items-center gap-1">
             <!-- Dark/Light Toggle Button -->
@@ -214,17 +225,19 @@
             >
               Contact details
             </h2>
-            <div class="flex space-between gap-4">
-              <ul class="grid text-gray-400 font-medium text-md">
-                <li>Name</li>
+            <div class="flex w-full">
+              <ul class="grid text-gray-600 font-medium text-sm w-3/10 p-4">
+                <li>First Name</li>
+                <li>Last Name</li>
                 <li>Email</li>
                 <li>Phone Number</li>
                 <li>Job title</li>
                 <li>Company</li>
+                <li>Website URL</li>
                 <!-- Column for action icons -->
               </ul>
               <ul
-                class="grid text-gray-500 block font-medium text-md space-y-4"
+                class="grid text-gray-500 block font-medium text-md space-y-4 w-7/10 p-4"
                 id="contact-container"
               ></ul>
               <!-- List View -->

@@ -78,8 +78,14 @@ const createFormElement = document.getElementById("create-form");
 function searchContacts(contacts, searchQuery) {
   searchInputElement.value = searchQuery;
 
-  const filteredContacts = contacts.filter((contact) =>
-    contact.firstName.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredContacts = contacts.filter(
+    (contact) =>
+      contact.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      contact.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      contact.company.jobTitle
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase()) ||
+      contact.company.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return filteredContacts;
