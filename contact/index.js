@@ -225,12 +225,18 @@ function renderEditContactFormById(id) {
 
 function deleteContactById(id) {
   const contacts = loadContacts();
+  const userConfirmed = confirm("You want to delete this contact?");
 
-  const updatedContacts = contacts.filter(
-    (contact) => contact.id !== Number(id)
-  );
-  saveContacts(updatedContacts);
-  window.location.replace("/");
+  if (userConfirmed) {
+    const updatedContacts = contacts.filter(
+      (contact) => contact.id !== Number(id)
+    );
+
+    saveContacts(updatedContacts);
+
+    window.location.replace("/");
+  }
 }
+
 renderContactById();
 window.addEventListener("load", renderContactById);

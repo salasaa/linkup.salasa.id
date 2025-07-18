@@ -61,16 +61,21 @@ function renderContacts() {
             <p>${fullName}</p>
             <p>${contact.email}</p>
             <p>${contact.phoneNumber}</p>
-            <p>${contact.company.jobTitle} (${contact.company.name})</p>
+            <p>${contact.company.jobTitle}${
+        contact.company.name ? `(${contact.company.name})` : ""
+      }</p>
             <div class="flex display-end gap-3">
-              
               <button class="flex items-center justify-between p-3 rounded-3xl hover:bg-gray-100 "> 
                 <i class="far fa-star  hover:text-yellow-500"></i>
               </button>
-              <a href="/contact/?id=${contact.id}" class="flex items-center justify-between p-3 rounded-3xl hover:bg-gray-100 "> 
+              <a href="/contact/?id=${
+                contact.id
+              }" class="flex items-center justify-between p-3 rounded-3xl hover:bg-gray-100 "> 
                 <i class='fa fa-eye'></i>
               </a>
-              <button class="flex items-center justify-between p-3 rounded-3xl hover:bg-gray-100 " onclick="deleteContact(contacts,${contact.id})"> 
+              <button class="flex items-center justify-between p-3 rounded-3xl hover:bg-gray-100 " onclick="deleteContact(contacts,${
+                contact.id
+              })"> 
                 <i class='fa fa-trash-can'></i>
               </button>
             </div>
@@ -84,7 +89,7 @@ function renderContacts() {
 }
 
 function renderOneContact(contacts, contactId) {
-  const contact = contacts.find((fruit) => {
+  const contact = contacts.find((contact) => {
     return contact.id === contactId;
   });
 
@@ -137,46 +142,49 @@ function deleteContact(contacts, contactId) {
     (contact) => contact.id !== contactId
   );
 
+  confirm("You want to delete this contact?");
+
   saveContacts(filteredContacts);
+
   renderContacts(filteredContacts);
 
   console.log(`Contact with ID ${contactId} has been deleted.`);
 }
 
 // UPDATE CONTACT, SAVE TO LOCAL STORAGE
-function updateContact(contacts, contactId, updatedContactInput) {
-  const originalContact = contacts.find((contact) => contact.id === contactId);
+// function updateContact(contacts, contactId, updatedContactInput) {
+//   const originalContact = contacts.find((contact) => contact.id === contactId);
 
-  const updatedContact = {
-    id: contactId,
-    firstName: updatedContactInput.firstName || originalContact.firstName,
-    lastName: updatedContactInput.lastName || originalContact.lastName,
-    company: {
-      name: updatedContactInput.company?.name || originalContact.company.name,
-      jobTitle:
-        updatedContactInput.company?.jobTitle ||
-        originalContact.company.jobTitle,
-    },
-    email: updatedContactInput.email || originalContact.email,
-    phoneNumber: updatedContactInput.phoneNumber || originalContact.phoneNumber,
-    websiteUrl: updatedContactInput.websiteUrl || originalContact.websiteUrl,
-    isFavorited:
-      updatedContactInput.isFavorited !== undefined
-        ? updatedContactInput.isFavorited
-        : originalContact.isFavorited,
-    createdAt: originalContact.createdAt,
-  };
+//   const updatedContact = {
+//     id: contactId,
+//     firstName: updatedContactInput.firstName || originalContact.firstName,
+//     lastName: updatedContactInput.lastName || originalContact.lastName,
+//     company: {
+//       name: updatedContactInput.company?.name || originalContact.company.name,
+//       jobTitle:
+//         updatedContactInput.company?.jobTitle ||
+//         originalContact.company.jobTitle,
+//     },
+//     email: updatedContactInput.email || originalContact.email,
+//     phoneNumber: updatedContactInput.phoneNumber || originalContact.phoneNumber,
+//     websiteUrl: updatedContactInput.websiteUrl || originalContact.websiteUrl,
+//     isFavorited:
+//       updatedContactInput.isFavorited !== undefined
+//         ? updatedContactInput.isFavorited
+//         : originalContact.isFavorited,
+//     createdAt: originalContact.createdAt,
+//   };
 
-  const updatedContacts = contacts.map((contact) => {
-    if (contact.id === contactId) {
-      return updatedContact;
-    }
-    return contact;
-  });
+//   const updatedContacts = contacts.map((contact) => {
+//     if (contact.id === contactId) {
+//       return updatedContact;
+//     }
+//     return contact;
+//   });
 
-  saveContacts(updatedContacts);
-  renderContacts();
-}
+//   saveContacts(updatedContacts);
+//   renderContacts();
+// }
 
 loadDataContacts();
 
