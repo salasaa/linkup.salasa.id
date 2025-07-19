@@ -4,25 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Linkup - Contact Book</title>
-    <meta
-      name="description"
-      content="Contact book application to manage your contacts easily."
-    />
+    <meta name="description" content="Contact book application to manage your contacts easily." />
     <meta name="author" content="Akhirudin Salasa" />
     <meta name="theme-color" content="#16a34a" />
     <link rel="icon" href="/assets/icons/linkup-logo.svg" type="image/x-icon" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
@@ -52,12 +40,11 @@
             <img alt="linkup" src="/assets/icons/linkup-logo.png" />
           </a>
           <!-- Search Bar -->
-          <div
-            class="relative flex items-center w-full max-w-lg md:max-w-md lg:max-w-lg"
-          >
+          <div class="relative flex items-center w-full max-w-lg md:max-w-md lg:max-w-lg">
             <form
-              id=""
+              id="search-box"
               method="get"
+              action="/"
               class="relative flex items-center w-full max-w-lg md:max-w-md lg:max-w-lg"
             >
               <i class="fas fa-search absolute left-3 text-gray-400"></i>
@@ -104,11 +91,7 @@
                 stroke-width="2"
                 viewBox="0 0 24 24"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"
-                />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" />
               </svg>
             </button>
             <!-- Search Toggle Button -->
@@ -117,17 +100,8 @@
               aria-label="Go to search page"
               class="p-2 rounded-full bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-800 transition"
             >
-              <svg
-                class="h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
+              <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </a>
           </div>
@@ -135,9 +109,7 @@
       </header>
 
       <div class="flex flex-1">
-        <aside
-          class="w-64 bg-white shadow-md p-4 flex flex-col justify-between"
-        >
+        <aside class="w-64 bg-white shadow-md p-4 flex flex-col justify-between">
           <div>
             <a
               href="/"
@@ -148,34 +120,23 @@
             </a>
 
             <nav class="space-y-2">
-              <a
-                href="/"
-                class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 cursor-pointer"
-              >
-                <span
-                  class="flex items-center space-x-2 text-gray-700 font-medium"
-                >
+              <a href="/" class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 cursor-pointer">
+                <span class="flex items-center space-x-2 text-gray-700 font-medium">
                   <i class="fas fa-user text-blue-500"></i>
                   <span>Contact</span>
                 </span>
                 <span class="text-gray-500 text-sm"></span>
               </a>
 
-              <div
-                class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 cursor-pointer"
-              >
-                <span
-                  class="flex items-center space-x-2 text-gray-700 font-medium"
-                >
+              <div class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 cursor-pointer">
+                <span class="flex items-center space-x-2 text-gray-700 font-medium">
                   <i class="fas fa-trash-alt text-red-500"></i>
                   <span>Trash</span>
                 </span>
                 <span class="text-gray-500 text-sm"></span>
               </div>
 
-              <div
-                class="flex items-center justify-between p-2 rounded-lg text-gray-700 font-medium"
-              >
+              <div class="flex items-center justify-between p-2 rounded-lg text-gray-700 font-medium">
                 <span class="flex items-center space-x-2">
                   <span>Label</span>
                 </span>
@@ -183,9 +144,7 @@
               </div>
               <div class="border-t border-gray-200 my-4"></div>
 
-              <div
-                class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 cursor-pointer"
-              >
+              <div class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 cursor-pointer">
                 <span class="flex items-center space-x-2 text-gray-700">
                   <i class="fas fa-tag text-orange-500"></i>
                   <span>Unknown</span>
@@ -194,23 +153,14 @@
             </nav>
           </div>
 
-          <div class="text-center text-gray-500 text-xs mt-8">
-            2025 copyright . salasa.co.id
-          </div>
+          <div class="text-center text-gray-500 text-xs mt-8">2025 copyright . salasa.co.id</div>
         </aside>
 
         <!-- Main Content Area (Contact List or Create Contact Form) -->
         <main id="" class="flex-1 p-6 bg-gray-50 flex flex-col overflow-y-auto">
-          <div
-            id=""
-            class="sticky top-0 bg-white rounded-lg shadow-md p-6 flex flex-col flex-1"
-          >
+          <div id="" class="sticky top-0 bg-white rounded-lg shadow-md p-6 flex flex-col flex-1">
             <!-- Added flex flex-col flex-1 here -->
-            <h2
-              class="bg-white text-xl font-semibold text-gray-800 mb-4 border-b border-gray-200"
-            >
-              Contact details
-            </h2>
+            <h2 class="bg-white text-xl font-semibold text-gray-800 mb-4 border-b border-gray-200">Contact details</h2>
             <div class="flex w-full">
               <ul class="grid text-gray-600 font-medium text-sm w-3/10 p-4">
                 <li>First Name</li>
@@ -222,10 +172,7 @@
                 <li>Website URL</li>
                 <!-- Column for action icons -->
               </ul>
-              <ul
-                class="grid text-gray-500 block font-medium text-md space-y-4 w-7/10 p-4"
-                id="contact-container"
-              ></ul>
+              <ul class="grid text-gray-500 block font-medium text-md space-y-4 w-7/10 p-4" id="contact-container"></ul>
               <!-- List View -->
             </div>
           </div>

@@ -89,42 +89,6 @@ function renderOneContact(contacts, contactId) {
   renderContacts([contact]);
 }
 
-// function searchContacts(contacts, searchQuery) {
-//   searchInputElement.value = searchQuery;
-
-//   const searchedContact = contacts.filter((contact) => {
-//     const fullName = `${contact.firstName} ${contact.lastName}`;
-
-//     return (
-//       fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-//       contact.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-//       contact.phoneNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
-//       contact.company.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-//       contact.company.jobTitle.toLowerCase().includes(searchQuery.toLowerCase())
-//     );
-//   });
-//   renderContacts(searchedContact);
-
-//   if (searchedContact.length === 0) {
-//     console.log(`No contacts found : "${searchQuery}"`);
-//   } else {
-//     console.log(
-//       `Found ${searchedContact.length} contact(s) : "${searchQuery}"`
-//     );
-//     searchedContact.forEach((contact) => {
-//       const fullName = `${contact.firstName} ${contact.lastName}`.trim();
-//       console.log(`
-//         ${fullName},
-//         ${contact.email},
-//         ${contact.phoneNumber},
-//         ${contact.company.name} (${contact.company.jobTitle}),
-//       `);
-//     });
-//   }
-// }
-
-// DELETE CONTACT, SAVE, RENDER
-
 function deleteContact(contacts, contactId) {
   const filteredContacts = contacts.filter((contact) => contact.id !== contactId);
 
@@ -136,41 +100,6 @@ function deleteContact(contacts, contactId) {
 
   console.log(`Contact with ID ${contactId} has been deleted.`);
 }
-
-// UPDATE CONTACT, SAVE TO LOCAL STORAGE
-// function updateContact(contacts, contactId, updatedContactInput) {
-//   const originalContact = contacts.find((contact) => contact.id === contactId);
-
-//   const updatedContact = {
-//     id: contactId,
-//     firstName: updatedContactInput.firstName || originalContact.firstName,
-//     lastName: updatedContactInput.lastName || originalContact.lastName,
-//     company: {
-//       name: updatedContactInput.company?.name || originalContact.company.name,
-//       jobTitle:
-//         updatedContactInput.company?.jobTitle ||
-//         originalContact.company.jobTitle,
-//     },
-//     email: updatedContactInput.email || originalContact.email,
-//     phoneNumber: updatedContactInput.phoneNumber || originalContact.phoneNumber,
-//     websiteUrl: updatedContactInput.websiteUrl || originalContact.websiteUrl,
-//     isFavorited:
-//       updatedContactInput.isFavorited !== undefined
-//         ? updatedContactInput.isFavorited
-//         : originalContact.isFavorited,
-//     createdAt: originalContact.createdAt,
-//   };
-
-//   const updatedContacts = contacts.map((contact) => {
-//     if (contact.id === contactId) {
-//       return updatedContact;
-//     }
-//     return contact;
-//   });
-
-//   saveContacts(updatedContacts);
-//   renderContacts();
-// }
 
 loadDataContacts();
 
