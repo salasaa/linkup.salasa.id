@@ -8,6 +8,7 @@ function loadContacts() {
   const storageContacts = localStorage.getItem("storage-contacts");
   if (!storageContacts) {
     saveContacts([]);
+    return [];
   }
   try {
     return JSON.parse(storageContacts);
