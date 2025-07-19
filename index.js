@@ -1,14 +1,8 @@
-let placeholderDataContacts =
-  JSON.parse(localStorage.getItem("storage-contacts")) || [];
+let placeholderDataContacts = JSON.parse(localStorage.getItem("storage-contacts")) || [];
 
 // LOAD CONTACTS FROM LOCAL STORAGE
 function loadDataContacts() {
   contacts = loadContacts();
-
-  if (contacts.length === 0) {
-    const newContacts = saveContacts(placeholderDataContacts);
-    return newContacts;
-  }
 
   return contacts;
 }
@@ -26,9 +20,7 @@ function searchContacts(contacts, searchQuery) {
     (contact) =>
       contact.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       contact.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      contact.company.jobTitle
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase()) ||
+      contact.company.jobTitle.toLowerCase().includes(searchQuery.toLowerCase()) ||
       contact.company.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -41,9 +33,7 @@ function renderContacts() {
   const urlParams = new URLSearchParams(window.location.search);
   const searchQuery = urlParams.get("q");
 
-  const contactToDisplay = searchQuery
-    ? searchContacts(contacts, searchQuery)
-    : contacts;
+  const contactToDisplay = searchQuery ? searchContacts(contacts, searchQuery) : contacts;
 
   // Use map and join to build the HTML string
   const contactsHTMLString = contactToDisplay
@@ -61,9 +51,7 @@ function renderContacts() {
             <p>${fullName}</p>
             <p>${contact.email}</p>
             <p>${contact.phoneNumber}</p>
-            <p>${contact.company.jobTitle}${
-        contact.company.name ? `(${contact.company.name})` : ""
-      }</p>
+            <p>${contact.company.jobTitle}${contact.company.name ? `(${contact.company.name})` : ""}</p>
             <div class="flex display-end gap-3">
               <button class="flex items-center justify-between p-3 rounded-3xl hover:bg-gray-100 "> 
                 <i class="far fa-star  hover:text-yellow-500"></i>
@@ -138,9 +126,7 @@ function renderOneContact(contacts, contactId) {
 // DELETE CONTACT, SAVE, RENDER
 
 function deleteContact(contacts, contactId) {
-  const filteredContacts = contacts.filter(
-    (contact) => contact.id !== contactId
-  );
+  const filteredContacts = contacts.filter((contact) => contact.id !== contactId);
 
   confirm("You want to delete this contact?");
 
